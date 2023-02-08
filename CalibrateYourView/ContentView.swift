@@ -2,7 +2,8 @@
 //  ContentView.swift
 //  CalibrateYourView
 //
-//  Created by Hunter Muench on 1/27/23.
+//  UI Lead:        Nathan Taylor
+//  Contributers:   Hunter Muench
 //
 
 import SwiftUI
@@ -20,6 +21,8 @@ struct ContentView: View {
             Color(#colorLiteral(red: 0.96, green: 0.96, blue: 0.96, alpha: 1))
                 .ignoresSafeArea();
             VStack {
+                // TODO: Logo
+                
                 // Sample Text Box
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
@@ -27,25 +30,28 @@ struct ContentView: View {
                     Text("\"The quick brown fox jumps over the lazy dog\" is an English-language pangram — a sentence that contains all the letters of the alphabet.")
                         .padding()
                         .multilineTextAlignment(.center)
-                        .font(.system(size: CGFloat(fontSize),
-                                      weight: isBold ? .bold : .regular))
+                        .font(.system(size: CGFloat(fontSize), weight: isBold ? .bold : .regular))
                 }
                 .frame(height: 210)
                 
-                // Font Size Slider
-                Slider(
-                    value: $fontSize,
-                    in: 14...32,
-                    step:2,
-                    minimumValueLabel:
-                        Text("A").font(.system(size: 16)),
-                    maximumValueLabel:
-                        Text("A").font(.system(size: 20)),
-                    label: { Text("") })
+                VStack { // Settings Stack
+                    // Font Size Slider
+                    Slider( value: $fontSize,
+                            in: 14...32,
+                            step:2,
+                            minimumValueLabel: Text("A").font(.system(size: 18)),
+                            maximumValueLabel: Text("A").font(.system(size: 24)),
+                            label: { Text("") })
                     .accentColor(Color.gray)
+
+                    // Bold Text Toggle
+                    Toggle("Bold Text", isOn: $isBold)
+                        .font(.system(size: CGFloat(fontSize), weight: .bold))
+                }
+                .padding()
+                .padding(.top, 32)
                 
-                // Bold Text Toggle
-                Toggle("Bold Text", isOn: $isBold)
+                Spacer()
             }
             .padding()
         }
