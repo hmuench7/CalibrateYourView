@@ -14,6 +14,8 @@ struct SettingsView: View {
     @State var fontSize: Float = 20.0
     // bool for bolding sample text
     @State var isBold: Bool = false
+    // string for sample text
+    @State var sampleText: String = "\"The quick brown fox jumps over the lazy dog\" is an English-language pangram — a sentence that contains all the letters of the alphabet."
     
     var body: some View {
         ZStack {
@@ -27,7 +29,7 @@ struct SettingsView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Color.white)
-                    Text("\"The quick brown fox jumps over the lazy dog\" is an English-language pangram — a sentence that contains all the letters of the alphabet.")
+                    TextEditor(text: $sampleText)
                         .padding()
                         .multilineTextAlignment(.center)
                         .font(.system(size: CGFloat(fontSize), weight: isBold ? .bold : .regular))
