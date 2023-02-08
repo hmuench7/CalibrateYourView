@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		43345694299429140008AC86 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43345693299429140008AC86 /* Colors.swift */; };
 		D7A127AD29842FA30071AB2E /* CalibrateYourViewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A127AC29842FA30071AB2E /* CalibrateYourViewApp.swift */; };
 		D7A127AF29842FA30071AB2E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A127AE29842FA30071AB2E /* SettingsView.swift */; };
 		D7A127B129842FA50071AB2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7A127B029842FA50071AB2E /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		43345693299429140008AC86 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		D7A127A929842FA30071AB2E /* CalibrateYourView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalibrateYourView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7A127AC29842FA30071AB2E /* CalibrateYourViewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrateYourViewApp.swift; sourceTree = "<group>"; };
 		D7A127AE29842FA30071AB2E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			children = (
 				D7A127AC29842FA30071AB2E /* CalibrateYourViewApp.swift */,
 				D7A127AE29842FA30071AB2E /* SettingsView.swift */,
+				43345693299429140008AC86 /* Colors.swift */,
 				D7A127B029842FA50071AB2E /* Assets.xcassets */,
 				D7A127B229842FA50071AB2E /* Preview Content */,
 			);
@@ -258,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7A127AF29842FA30071AB2E /* SettingsView.swift in Sources */,
+				43345694299429140008AC86 /* Colors.swift in Sources */,
 				D7A127AD29842FA30071AB2E /* CalibrateYourViewApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -17,46 +17,65 @@ struct SettingsView: View {
     // string for sample text
     @State var sampleText: String = "\"The quick brown fox jumps over the lazy dog\" is an English-language pangram — a sentence that contains all the letters of the alphabet."
     
+    // get the devices Darkmode/Lightmode setting
+    @Environment(\.colorScheme) private var colorScheme
+    
+    init() {
+        UITextView.appearance().backgroundColor = .clear
+    }
+    
     var body: some View {
         ZStack {
-            // Set background color to light gray
-            Color(#colorLiteral(red: 0.96, green: 0.96, blue: 0.96, alpha: 1))
-                .ignoresSafeArea();
+            Colors.SetBackground(isDarkmode: colorScheme == .dark)
             VStack {
                 // TODO: Logo
                 
                 // Sample Text Box
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.white)
+                        .fill(Colors.GetBackground2(isDarkmode: colorScheme == .dark))
                     TextEditor(text: $sampleText)
                         .padding()
                         .multilineTextAlignment(.center)
-                        .font(.system(size: CGFloat(fontSize), weight: isBold ? .bold : .regular))
+                        .font(.system(size: CGFloat(fontSize),
+                                      weight: isBold ? .bold : .regular))
+                        .scrollContentBackground(Visibility.hidden)
                 }
-                .frame(height: 210)
+                    .frame(height: 210)
                 
-                VStack { // Settings Stack
-                    // Font Size Slider
-                    Slider( value: $fontSize,
-                            in: 14...32,
-                            step:2,
-                            minimumValueLabel: Text("A").font(.system(size: 18)),
-                            maximumValueLabel: Text("A").font(.system(size: 24)),
-                            label: { Text("") })
-                    .accentColor(Color.gray)
-
-                    // Bold Text Toggle
-                    Toggle("Bold Text", isOn: $isBold)
-                        .font(.system(size: CGFloat(fontSize), weight: .bold))
+                ZStack { // Settings Stack
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Colors.GetBackground2(isDarkmode: colorScheme == .dark))
+                    SettingsStack
                 }
-                .padding()
-                .padding(.top, 32)
+                    .padding(.top)
+                    .frame(height:120)
                 
                 Spacer()
-            }
-            .padding()
+                
+            }.padding()
         }
+    }
+    
+    var SettingsStack : some View {
+        VStack { // Settings Stack
+            
+            // Font Size Slider
+            Slider( value: $fontSize,
+                    in: 14...32,
+                    step:2,
+                    minimumValueLabel: Text("A").font(.system(size: 18)),
+                    maximumValueLabel: Text("A").font(.system(size: 24)),
+                    label: { Text("") })
+            .accentColor(Color.gray)
+            Divider().padding(.top, -2)
+
+            // Bold Text Toggle
+            Toggle("Bold Text", isOn: $isBold)
+                .font(.system(size: 18, weight: .bold))
+            Divider()
+            
+        }.padding()
     }
 }
 
