@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct SettingsView: View {
     
     // float for sample text font size
     @State var fontSize: Float = 20.0
@@ -60,6 +60,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        SettingsView()
     }
 }

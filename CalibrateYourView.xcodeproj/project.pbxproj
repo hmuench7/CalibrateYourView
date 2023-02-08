@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D7A127AD29842FA30071AB2E /* CalibrateYourViewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A127AC29842FA30071AB2E /* CalibrateYourViewApp.swift */; };
-		D7A127AF29842FA30071AB2E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A127AE29842FA30071AB2E /* ContentView.swift */; };
+		D7A127AF29842FA30071AB2E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A127AE29842FA30071AB2E /* SettingsView.swift */; };
 		D7A127B129842FA50071AB2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7A127B029842FA50071AB2E /* Assets.xcassets */; };
 		D7A127B429842FA50071AB2E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7A127B329842FA50071AB2E /* Preview Assets.xcassets */; };
 		D7A127BE29842FA50071AB2E /* CalibrateYourViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A127BD29842FA50071AB2E /* CalibrateYourViewTests.swift */; };
@@ -36,7 +36,7 @@
 /* Begin PBXFileReference section */
 		D7A127A929842FA30071AB2E /* CalibrateYourView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalibrateYourView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7A127AC29842FA30071AB2E /* CalibrateYourViewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrateYourViewApp.swift; sourceTree = "<group>"; };
-		D7A127AE29842FA30071AB2E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D7A127AE29842FA30071AB2E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D7A127B029842FA50071AB2E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D7A127B329842FA50071AB2E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D7A127B929842FA50071AB2E /* CalibrateYourViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalibrateYourViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,7 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				D7A127AC29842FA30071AB2E /* CalibrateYourViewApp.swift */,
-				D7A127AE29842FA30071AB2E /* ContentView.swift */,
+				D7A127AE29842FA30071AB2E /* SettingsView.swift */,
 				D7A127B029842FA50071AB2E /* Assets.xcassets */,
 				D7A127B229842FA50071AB2E /* Preview Content */,
 			);
@@ -257,7 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7A127AF29842FA30071AB2E /* ContentView.swift in Sources */,
+				D7A127AF29842FA30071AB2E /* SettingsView.swift in Sources */,
 				D7A127AD29842FA30071AB2E /* CalibrateYourViewApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
