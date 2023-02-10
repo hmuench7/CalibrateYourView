@@ -2,8 +2,8 @@
 //  ProfilesView.swift
 //  CalibrateYourView
 //
-//  UI Lead:
-//  Backend Lead:        Nick Matthews
+//  UI Lead:        
+//  Backend Lead:   Nick Matthews
 //  Contributors:
 //
 
@@ -32,7 +32,7 @@ struct ProfilesView: View {
     var ProfilesStack : some View {
         VStack { // Profiles Stack
             
-            // List of Profiles
+            // List of Profiles (need a profile UI template to be repeated)
             
         }.padding()
     }
