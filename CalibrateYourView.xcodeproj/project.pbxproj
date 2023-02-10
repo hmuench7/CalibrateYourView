@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		430F1BF42996C0F900486569 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430F1BF32996C0F900486569 /* Utilities.swift */; };
 		43345694299429140008AC86 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43345693299429140008AC86 /* Colors.swift */; };
 		D7A127AD29842FA30071AB2E /* CalibrateYourViewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A127AC29842FA30071AB2E /* CalibrateYourViewApp.swift */; };
 		D7A127AF29842FA30071AB2E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A127AE29842FA30071AB2E /* SettingsView.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		430F1BF32996C0F900486569 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		43345693299429140008AC86 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		D7A127A929842FA30071AB2E /* CalibrateYourView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalibrateYourView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7A127AC29842FA30071AB2E /* CalibrateYourViewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrateYourViewApp.swift; sourceTree = "<group>"; };
@@ -73,6 +75,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		430F1BF52996C10D00486569 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				43345693299429140008AC86 /* Colors.swift */,
+				430F1BF32996C0F900486569 /* Utilities.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		D7A127A029842FA30071AB2E = {
 			isa = PBXGroup;
 			children = (
@@ -98,7 +109,7 @@
 			children = (
 				D7A127AC29842FA30071AB2E /* CalibrateYourViewApp.swift */,
 				D7A127AE29842FA30071AB2E /* SettingsView.swift */,
-				43345693299429140008AC86 /* Colors.swift */,
+				430F1BF52996C10D00486569 /* UI */,
 				D7A127B029842FA50071AB2E /* Assets.xcassets */,
 				D7A127B229842FA50071AB2E /* Preview Content */,
 			);
@@ -262,6 +273,7 @@
 			files = (
 				D7A127AF29842FA30071AB2E /* SettingsView.swift in Sources */,
 				43345694299429140008AC86 /* Colors.swift in Sources */,
+				430F1BF42996C0F900486569 /* Utilities.swift in Sources */,
 				D7A127AD29842FA30071AB2E /* CalibrateYourViewApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
