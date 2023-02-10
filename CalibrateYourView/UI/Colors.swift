@@ -19,6 +19,8 @@ struct lightmode {
 
 struct Colors {
     /*
+     Sets the Background for the app based on the colors specified in UI/Colors.swift
+     
      Usage Example:
      struct View : View {
      @Environment(\.colorScheme) private var colorScheme
@@ -33,7 +35,19 @@ struct Colors {
         Color(isDarkmode ? darkmode.background : lightmode.background).ignoresSafeArea()
     }
     
+    /*
+     Returns a Color object for the Background2 color specified in UI/Colors.swift
+    */
     public static func GetBackground2(isDarkmode: Bool) -> Color {
         Color(isDarkmode ? darkmode.background2 : lightmode.background2)
+    }
+    
+    /*
+     Returns the devices' accent color set in the Apple Settings.
+     Usage:
+     Colors.GetAccent
+     */
+    public static func GetAccent() -> Color {
+        return Color.accentColor
     }
 }
