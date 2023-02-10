@@ -27,6 +27,7 @@ struct SettingsView: View {
     var body: some View {
         ZStack {
             Colors.SetBackground(isDarkmode: colorScheme == .dark)
+            
             VStack {
                 // TODO: Logo
                 
@@ -41,41 +42,72 @@ struct SettingsView: View {
                                       weight: isBold ? .bold : .regular))
                         .scrollContentBackground(Visibility.hidden)
                 }
-                    .frame(height: 210)
+                .frame(height: 210)
                 
-                ZStack { // Settings Stack
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Colors.GetBackground2(isDarkmode: colorScheme == .dark))
-                    SettingsStack
-                }
+                SettingsStack
                     .padding(.top)
-                    .frame(height:120)
                 
-                Spacer()
+                SaveStack
+                    .padding(.top)
                 
-            }.padding()
+            }
+                .padding()
         }
     }
     
     var SettingsStack : some View {
-        VStack { // Settings Stack
+        ZStack { // Settings Stack
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Colors.GetBackground2(isDarkmode: colorScheme == .dark))
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack { // Settings Stack
+                    
+                    // Font Size Slider
+                    Slider( value: $fontSize,
+                            in: 14...32,
+                            step:2,
+                            minimumValueLabel: Text("A").font(.system(size: 18)),
+                            maximumValueLabel: Text("A").font(.system(size: 24)),
+                            label: { Text("") })
+                    .accentColor(Color.gray)
+                    Divider().padding(.top, -2)
+                    
+                    // Bold Text Toggle
+                    Toggle("Bold Text", isOn: $isBold)
+                        .font(.system(size: 18, weight: .bold))
+                    
+                    Divider()
+                    
+                    // TODO: Add more Settings HERE
+                    
+                    Spacer()
+                    
+                }.padding()
+            }
+        }
+    }
+    
+    /*
+     
+     */
+    var SaveStack : some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Colors.GetBackground2(isDarkmode: colorScheme == .dark))
+                .frame(height: 95)
             
-            // Font Size Slider
-            Slider( value: $fontSize,
-                    in: 14...32,
-                    step:2,
-                    minimumValueLabel: Text("A").font(.system(size: 18)),
-                    maximumValueLabel: Text("A").font(.system(size: 24)),
-                    label: { Text("") })
-            .accentColor(Color.gray)
-            Divider().padding(.top, -2)
-
-            // Bold Text Toggle
-            Toggle("Bold Text", isOn: $isBold)
-                .font(.system(size: 18, weight: .bold))
-            Divider()
-            
-        }.padding()
+            VStack {
+                HButton(label: "Save Profile", buttonAction: {
+                    print("Save Profile Button")
+                })
+                Divider().padding(.bottom, 4)
+                HButton(label: "Save and Apply Profile", buttonAction: {
+                    print("Save and Apply Profile Button")
+                })
+            }
+                .padding()
+                .font(.system(size: 18, weight: .regular))
+        }
     }
 }
 
