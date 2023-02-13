@@ -25,25 +25,15 @@ struct SettingsView: View {
     @State var placeHolderBool = false;
 
     // float for sample text font size
-<<<<<<< HEAD
 
     @State var fontSize: Float = 20.0
 
-=======
-    @State var fontSize: Float = 22.0
->>>>>>> 4e09c9b719a3d4c1dc8e048ba4ca2edd4594c020
     // bool for bolding sample text
 
     @State var isBold: Bool = false
 
     // string for sample text
-<<<<<<< HEAD
-
-    @State var sampleText: String = "\"The quick brown fox jumps over the lazy dog\" is an English-language pangram — a sentence that contains all the letters of the alphabet."
-
-=======
     @State var sampleText: String = "The quick brown fox jumps over the lazy dog."
->>>>>>> 4e09c9b719a3d4c1dc8e048ba4ca2edd4594c020
     
 
     // get the devices Darkmode/Lightmode setting
@@ -97,13 +87,7 @@ struct SettingsView: View {
                         .scrollContentBackground(Visibility.hidden)
 
                 }
-<<<<<<< HEAD
-
-                .frame(height: 210)
-
-=======
                 .frame(height: 120)
->>>>>>> 4e09c9b719a3d4c1dc8e048ba4ca2edd4594c020
                 
 
                 SettingsStack
@@ -117,19 +101,9 @@ struct SettingsView: View {
                     // Reset settings to defaults
 
                     // TODO: add a defaults class or define constants or something?
-<<<<<<< HEAD
-
-                    fontSize = 20.0
-
-                    isBold = false
-
-                    sampleText = "\"The quick brown fox jumps over the lazy dog\" is an English-language pangram — a sentence that contains all the letters of the alphabet."
-
-=======
                     fontSize = 22.0
                     isBold = false
                     sampleText = "The quick brown fox jumps over the lazy dog."
->>>>>>> 4e09c9b719a3d4c1dc8e048ba4ca2edd4594c020
                 }, isDarkmode: colorScheme == .dark).padding(.top)
 
                 
@@ -243,7 +217,6 @@ struct SettingsView: View {
                         .font(.system(size: 20, weight: .bold))
 
                     
-<<<<<<< HEAD
 
                     Group{
 
@@ -270,18 +243,6 @@ struct SettingsView: View {
                         Divider()
 
                     }
-
-=======
-                    // Font Size Slider
-                    Slider( value: $fontSize,
-                            in: 16...28,
-                            step:2,
-                            minimumValueLabel: Text("A").font(.system(size: 18)),
-                            maximumValueLabel: Text("A").font(.system(size: 24)),
-                            label: { Text("") })
-                    .accentColor(Color.gray)
-                    Divider().padding(.top, -2)
->>>>>>> 4e09c9b719a3d4c1dc8e048ba4ca2edd4594c020
                     
 
                     Group{
