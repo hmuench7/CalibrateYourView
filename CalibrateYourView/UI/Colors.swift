@@ -48,6 +48,6 @@ struct Colors {
      Colors.GetAccent
      */
     public static func GetAccent() -> Color {
-        return Color.accentColor
+        return Color.blue
     }
 }

@@ -29,7 +29,7 @@ struct SettingsView: View {
             Colors.SetBackground(isDarkmode: colorScheme == .dark)
             
             VStack {
-                // TODO: Logo
+                Logo()
                 
                 // Sample Text Box
                 ZStack {
@@ -53,7 +53,7 @@ struct SettingsView: View {
                     fontSize = 20.0
                     isBold = false
                     sampleText = "\"The quick brown fox jumps over the lazy dog\" is an English-language pangram — a sentence that contains all the letters of the alphabet."
-                }, isDarkmode: colorScheme == .dark)
+                }, isDarkmode: colorScheme == .dark).padding(.top)
                 
                 /*
                 SingleButton(label: "Coming Soon: Save Profile", buttonAction: {
