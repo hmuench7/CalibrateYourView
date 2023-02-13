@@ -23,8 +23,7 @@ struct ProfilesView: View {
         ZStack {
             Colors.SetBackground(isDarkmode: colorScheme == .dark)
             VStack {
-                // TODO: Logo
-                
+                Logo()
             }.padding()
         }
     }
