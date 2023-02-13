@@ -11,11 +11,11 @@ import SwiftUI
 struct SettingsView: View {
     
     // float for sample text font size
-    @State var fontSize: Float = 20.0
+    @State var fontSize: Float = 22.0
     // bool for bolding sample text
     @State var isBold: Bool = false
     // string for sample text
-    @State var sampleText: String = "\"The quick brown fox jumps over the lazy dog\" is an English-language pangram — a sentence that contains all the letters of the alphabet."
+    @State var sampleText: String = "The quick brown fox jumps over the lazy dog."
     
     // get the devices Darkmode/Lightmode setting
     @Environment(\.colorScheme) private var colorScheme
@@ -42,7 +42,7 @@ struct SettingsView: View {
                                       weight: isBold ? .bold : .regular))
                         .scrollContentBackground(Visibility.hidden)
                 }
-                .frame(height: 210)
+                .frame(height: 120)
                 
                 SettingsStack
                     .padding(.top)
@@ -50,9 +50,9 @@ struct SettingsView: View {
                 SingleButton(label: "Reset to Defaults", buttonAction: {
                     // Reset settings to defaults
                     // TODO: add a defaults class or define constants or something?
-                    fontSize = 20.0
+                    fontSize = 22.0
                     isBold = false
-                    sampleText = "\"The quick brown fox jumps over the lazy dog\" is an English-language pangram — a sentence that contains all the letters of the alphabet."
+                    sampleText = "The quick brown fox jumps over the lazy dog."
                 }, isDarkmode: colorScheme == .dark).padding(.top)
                 
                 /*
@@ -77,7 +77,7 @@ struct SettingsView: View {
                     
                     // Font Size Slider
                     Slider( value: $fontSize,
-                            in: 14...32,
+                            in: 16...28,
                             step:2,
                             minimumValueLabel: Text("A").font(.system(size: 18)),
                             maximumValueLabel: Text("A").font(.system(size: 24)),
