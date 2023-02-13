@@ -24,5 +24,16 @@ func HButton(label: String, buttonAction: @escaping () -> Void) -> some View {
             Text(label)
             Spacer()
         }
-    }.contentShape(Rectangle())
+    }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .contentShape(Rectangle())
+}
+
+func SingleButton(label: String, buttonAction: @escaping () -> Void, isDarkmode: Bool) -> some View {
+    ZStack {
+        RoundedRectangle(cornerRadius: 10)
+            .fill(Colors.GetBackground2(isDarkmode: isDarkmode))
+        HButton(label: label, buttonAction: buttonAction)
+    }
+    .frame(height: 50)
 }

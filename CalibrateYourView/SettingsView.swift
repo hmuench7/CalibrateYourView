@@ -47,9 +47,13 @@ struct SettingsView: View {
                 SettingsStack
                     .padding(.top)
                 
-                SaveStack
+                /*
+                SingleButton(label: "Coming Soon: Save Profile", buttonAction: {
+                    // TODO: Button Code Here
+                    // PLACEBO BUTTON for Alpha
+                }, isDarkmode: colorScheme == .dark)
                     .padding(.top)
-                
+                */
             }
                 .padding()
         }
@@ -84,29 +88,6 @@ struct SettingsView: View {
                     
                 }.padding()
             }
-        }
-    }
-    
-    /*
-     
-     */
-    var SaveStack : some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10)
-                .fill(Colors.GetBackground2(isDarkmode: colorScheme == .dark))
-                .frame(height: 95)
-            
-            VStack {
-                HButton(label: "Save Profile", buttonAction: {
-                    print("Save Profile Button")
-                })
-                Divider().padding(.bottom, 4)
-                HButton(label: "Save and Apply Profile", buttonAction: {
-                    print("Save and Apply Profile Button")
-                })
-            }
-                .padding()
-                .font(.system(size: 18, weight: .regular))
         }
     }
 }
