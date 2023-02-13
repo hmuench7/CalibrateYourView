@@ -47,6 +47,14 @@ struct SettingsView: View {
                 SettingsStack
                     .padding(.top)
                 
+                SingleButton(label: "Reset to Defaults", buttonAction: {
+                    // Reset settings to defaults
+                    // TODO: add a defaults class or define constants or something?
+                    fontSize = 20.0
+                    isBold = false
+                    sampleText = "\"The quick brown fox jumps over the lazy dog\" is an English-language pangram — a sentence that contains all the letters of the alphabet."
+                }, isDarkmode: colorScheme == .dark)
+                
                 /*
                 SingleButton(label: "Coming Soon: Save Profile", buttonAction: {
                     // TODO: Button Code Here
@@ -54,6 +62,7 @@ struct SettingsView: View {
                 }, isDarkmode: colorScheme == .dark)
                     .padding(.top)
                 */
+                
             }
                 .padding()
         }
