@@ -11,7 +11,6 @@ import SwiftUI
 
 struct ProfilesView: View {
     
-    
     // get the devices Darkmode/Lightmode setting
     @Environment(\.colorScheme) private var colorScheme
     
@@ -30,9 +29,7 @@ struct ProfilesView: View {
     
     var ProfilesStack : some View {
         VStack { // Profiles Stack
-            
             // List of Profiles (need a profile UI template to be repeated)
-            
         }.padding()
     }
 }
