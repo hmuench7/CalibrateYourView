@@ -25,9 +25,13 @@ struct SettingsView: View {
     
     var body: some View {
         ZStack {
+            // Set Background
             Colors.SetBackground(isDarkmode: colorScheme == .dark)
+            
             VStack {
+                // CalibrateYourView Logo
                 Logo()
+                
                 // Sample Text Box
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
@@ -39,26 +43,31 @@ struct SettingsView: View {
                                       weight: isBold ? .bold : .regular))
                         .scrollContentBackground(Visibility.hidden)
                 }
-                .frame(height: 120)
+                    .frame(height: 120)
+                
                 SettingsStack
                     .padding(.top)
+                
+                // Reset to Defaults Button
                 SingleButton(label: "Reset to Defaults", buttonAction: {
                     // Reset settings to defaults
                     // TODO: add a defaults class or define constants or something?
                     fontSize = 22.0
                     isBold = false
                     sampleText = "The quick brown fox jumps over the lazy dog."
-                }, isDarkmode: colorScheme == .dark).padding(.top)
-                SingleButton(label: "Save Profile", buttonAction: {
-                    // TODO: Button Code Here
-                    // PLACEBO BUTTON for Alpha
+                }, isDarkmode: colorScheme == .dark)
+                .padding(.top)
+                
+                // Save Profile Button
+                SingleButton(label: "Save Settings", buttonAction: {
+                    // Button Code: Save Button Settings
                     SetFontSize(fontSize: fontSize)
                     SetIsBold(isBold: isBold)
                     SetSampleText(sampleText: sampleText)
                 }, isDarkmode: colorScheme == .dark)
-                    .padding(.top)
+                .padding(.top)
             }
-                .padding()
+            .padding()
         }
     }
 
@@ -66,92 +75,77 @@ struct SettingsView: View {
         ZStack { // Settings Stack
             RoundedRectangle(cornerRadius: 10)
                 .fill(Colors.GetBackground2(isDarkmode: colorScheme == .dark))
+            
+            // Scrollable Settings Section
             ScrollView(.vertical, showsIndicators: false) {
+                
                 VStack { // Text Settings Stack
-                    Group{
-                        Text("Text Settings")
-                            .font(.system(size: 20, weight: .bold))
-                        // Font Size Slider
-                        Slider( value: $fontSize,
-                                in: 14...32,
-                                step:2,
-                                minimumValueLabel: Text("A").font(.system(size: 18)),
-                                maximumValueLabel: Text("A").font(.system(size: 24)),
-                                label: { Text("") })
-                        .accentColor(Color.gray)
-                        Divider().padding(.top, -2)
-                        // Bold Text Toggle
-                        Toggle("Bold Text", isOn: $isBold)
-                            .font(.system(size: 18, weight: .bold))
-                        Divider()
-                        Group {
-                            Toggle("Dyslexie Font", isOn: $placeHolderBool)
-                                .font(.system(size: 18))
-                            Divider()
-                        }
-                    }
-                    Spacer()
-                }.padding()
-                //Display settings VStack
-                VStack{
+                    Text("Text Settings")
+                        .font(.system(size: 20, weight: .bold))
+                    
+                    // Font Size Slider
+                    Slider( value: $fontSize,
+                            in: 14...32,
+                            step:2,
+                            minimumValueLabel: Text("A").font(.system(size: 18)),
+                            maximumValueLabel: Text("A").font(.system(size: 24)),
+                            label: { Text("") })
+                        .tint(.gray)
+                    Divider().padding(.top, -2)
+                    
+                    // Bold Text Toggle
+                    CustomToggle(label: "Bold Text", isOn: $isBold)
+                    // DyslexieFont Toggle
+                    CustomToggle(label: "Dyslexie Font", isOn: $placeHolderBool)
+                    
+                }
+                .padding()
+                
+                VStack{ // Display Settings Stack
                     Text("Display Settings")
                         .font(.system(size: 20, weight: .bold))
-                    Group{
-                        Toggle("On/Off Labels", isOn: $placeHolderBool)
-                            .font(.system(size: 18))
-                        Divider()
-                    }
-                    Group{
-                        Toggle("Reduce Transpareny", isOn: $placeHolderBool)
-                            .font(.system(size: 18))
-                        Divider()
-                    }
-                    Group{
-                        Toggle("Increase Contrast", isOn: $placeHolderBool)
-                            .font(.system(size: 18))
-                        Divider()
-                    }
-                    Group{
-                        Toggle("Invert Colors", isOn: $placeHolderBool)
-                            .font(.system(size: 18))
-                        Divider()
-                    }
-                    Group {
-                        Toggle("Reduce White Point", isOn: $placeHolderBool)
-                            .font(.system(size: 18))
-                        Divider()
-                    }
-                    Group {
-                        Toggle("On/Off Auto-Brightness", isOn: $placeHolderBool)
-                            .font(.system(size: 18))
-                        Divider()
-                    }
-                }.padding()
-                VStack{//Motion Settings VStack
-                    Group {
-                        Text("Motion Settings")
-                            .font(.system(size: 20, weight: .bold))
-                        Toggle("Reduce Motion", isOn: $placeHolderBool)
-                            .font(.system(size: 18))
-                        Divider()
-                    }
-                    Group{
-                        Toggle("Auto-Play Message Effects", isOn: $placeHolderBool)
-                            .font(.system(size: 18))
-                        Divider()
-                    }
-                    Group{
-                        Toggle("Auto-Play Video Previews", isOn: $placeHolderBool)
-                            .font(.system(size: 18))
-                        Divider()
-                    }
-                    Group{
-                        Toggle("Limit Frame Rate", isOn: $placeHolderBool)
-                            .font(.system(size: 18))
-                        Divider()
-                    }
-                }.padding()
+                    
+                    // On/Off Labels
+                    CustomToggle(label: "On/Off Labels", isOn: $placeHolderBool)
+                    // Reduce Transpareny
+                    CustomToggle(label: "Reduce Transpareny", isOn: $placeHolderBool)
+                    // Increase Contrast
+                    CustomToggle(label: "Increase Contrast", isOn: $placeHolderBool)
+                    // Invert Colors
+                    CustomToggle(label: "Invert Colors", isOn: $placeHolderBool)
+                    // Reduce White Point
+                    CustomToggle(label: "Reduce White Point", isOn: $placeHolderBool)
+                    // On/Off Auto-Brightness
+                    CustomToggle(label: "On/Off Auto-Brightness", isOn: $placeHolderBool)
+                    
+                }
+                .padding()
+                
+                VStack{ // Motion Settings Stack
+                    Text("Motion Settings")
+                        .font(.system(size: 20, weight: .bold))
+                    
+                    // Reduce Motion
+                    CustomToggle(label: "Reduce Motion", isOn: $placeHolderBool)
+                    // Auto-Play Message Effects
+                    CustomToggle(label: "Auto-Play Message Effects", isOn: $placeHolderBool)
+                    // Auto-Play Video Previews
+                    CustomToggle(label: "Auto-Play Video Previews", isOn: $placeHolderBool)
+                    // Limit Frame Rate
+                    CustomToggle(label: "Limit Frame Rate", isOn: $placeHolderBool)
+                    
+                }
+                .padding()
             }
+        }
+    }
+    
+    func CustomToggle(label: String, isOn: Binding<Bool>) -> some View {
+        return Group {
+            Toggle(label, isOn: isOn)
+                .toggleStyle(SwitchToggleStyle(tint: Colors.GetAccent()))
+                .font(.system(size: 18))
+            Divider()
         }
     }
 }
