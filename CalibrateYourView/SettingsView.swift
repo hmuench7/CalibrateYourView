@@ -13,6 +13,17 @@ import SwiftUI
 struct SettingsView: View {
     // place holder bool for settings that are not implemented yet
     @State var placeHolderBool = false;
+    @State var placeHolderBool1 = false;
+    @State var placeHolderBool2 = false;
+    @State var placeHolderBool3 = false;
+    @State var placeHolderBool4 = false;
+    @State var placeHolderBool5 = false;
+    @State var placeHolderBool6 = false;
+    @State var placeHolderBool7 = false;
+    @State var placeHolderBool8 = false;
+    @State var placeHolderBool9 = false;
+    @State var placeHolderBool10 = false;
+    @State var placeHolderBool11 = false;
     // float for sample text font size
     @State var fontSize: Float = FontSize()
     // bool for bolding sample text
@@ -110,17 +121,17 @@ struct SettingsView: View {
                         .font(.system(size: 20, weight: .bold))
                     
                     // On/Off Labels
-                    CustomToggle(label: "On/Off Labels", isOn: $placeHolderBool)
+                    CustomToggle(label: "On/Off Labels", isOn: $placeHolderBool2)
                     // Reduce Transpareny
-                    CustomToggle(label: "Reduce Transpareny", isOn: $placeHolderBool)
+                    CustomToggle(label: "Reduce Transpareny", isOn: $placeHolderBool3)
                     // Increase Contrast
-                    CustomToggle(label: "Increase Contrast", isOn: $placeHolderBool)
+                    CustomToggle(label: "Increase Contrast", isOn: $placeHolderBool4)
                     // Invert Colors
-                    CustomToggle(label: "Invert Colors", isOn: $placeHolderBool)
+                    CustomToggle(label: "Invert Colors", isOn: $placeHolderBool5)
                     // Reduce White Point
-                    CustomToggle(label: "Reduce White Point", isOn: $placeHolderBool)
+                    CustomToggle(label: "Reduce White Point", isOn: $placeHolderBool6)
                     // On/Off Auto-Brightness
-                    CustomToggle(label: "On/Off Auto-Brightness", isOn: $placeHolderBool)
+                    CustomToggle(label: "On/Off Auto-Brightness", isOn: $placeHolderBool7)
                     
                 }
                 .padding()
@@ -130,13 +141,13 @@ struct SettingsView: View {
                         .font(.system(size: 20, weight: .bold))
                     
                     // Reduce Motion
-                    CustomToggle(label: "Reduce Motion", isOn: $placeHolderBool)
+                    CustomToggle(label: "Reduce Motion", isOn: $placeHolderBool8)
                     // Auto-Play Message Effects
-                    CustomToggle(label: "Auto-Play Message Effects", isOn: $placeHolderBool)
+                    CustomToggle(label: "Auto-Play Message Effects", isOn: $placeHolderBool9)
                     // Auto-Play Video Previews
-                    CustomToggle(label: "Auto-Play Video Previews", isOn: $placeHolderBool)
+                    CustomToggle(label: "Auto-Play Video Previews", isOn: $placeHolderBool10)
                     // Limit Frame Rate
-                    CustomToggle(label: "Limit Frame Rate", isOn: $placeHolderBool)
+                    CustomToggle(label: "Limit Frame Rate", isOn: $placeHolderBool11)
                     
                 }
                 .padding()
