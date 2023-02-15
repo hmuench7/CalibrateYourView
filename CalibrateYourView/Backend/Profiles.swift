@@ -9,9 +9,9 @@ import Foundation
 import SwiftUI
 
 // defaults
-var defaultFontSize: Float = 20.0
+var defaultFontSize: Float = 22.0
 var defaultIsBold: Bool = false
-var defaultSampleText: String = "\"The quick brown fox jumps over the lazy dog\" is an English-language pangram — a sentence that contains all the letters of the alphabet."
+var defaultSampleText: String = "The quick brown fox jumps over the lazy dog."
 // auto play & auto brightness default on
 
 
