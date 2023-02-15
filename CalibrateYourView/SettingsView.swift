@@ -19,10 +19,10 @@ struct SettingsView: View {
     @State var placeHolderBool4 = false;
     @State var placeHolderBool5 = false;
     @State var placeHolderBool6 = false;
-    @State var placeHolderBool7 = false;
+    @State var placeHolderBool7 = true;
     @State var placeHolderBool8 = false;
-    @State var placeHolderBool9 = false;
-    @State var placeHolderBool10 = false;
+    @State var placeHolderBool9 = true;
+    @State var placeHolderBool10 = true;
     @State var placeHolderBool11 = false;
     // float for sample text font size
     @State var fontSize: Float = FontSize()
@@ -70,6 +70,18 @@ struct SettingsView: View {
                     fontSize = 22.0
                     isBold = false
                     sampleText = "The quick brown fox jumps over the lazy dog."
+                    placeHolderBool = false;
+                    placeHolderBool1 = false;
+                    placeHolderBool2 = false;
+                    placeHolderBool3 = false;
+                    placeHolderBool4 = false;
+                    placeHolderBool5 = false;
+                    placeHolderBool6 = false;
+                    placeHolderBool7 = true;
+                    placeHolderBool8 = false;
+                    placeHolderBool9 = true;
+                    placeHolderBool10 = true;
+                    placeHolderBool11 = false;
                 }, isDarkmode: colorScheme == .dark)
                 .padding(.top)
                 
