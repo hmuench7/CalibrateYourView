@@ -11,11 +11,11 @@ import SwiftUI
 struct SettingsView: View {
     @State var placeHolderBool = false;
     // float for sample text font size
-    @State var fontSize: Float = 20.0
+    @State var fontSize: Float = FontSize()
     // bool for bolding sample text
-    @State var isBold: Bool = false
+    @State var isBold: Bool = IsBold()
     // string for sample text
-    @State var sampleText: String = "The quick brown fox jumps over the lazy dog."
+    @State var sampleText: String = SampleText()
     // get the devices Darkmode/Lightmode setting
     @Environment(\.colorScheme) private var colorScheme
 
@@ -49,13 +49,14 @@ struct SettingsView: View {
                     isBold = false
                     sampleText = "The quick brown fox jumps over the lazy dog."
                 }, isDarkmode: colorScheme == .dark).padding(.top)
-                /*
-                SingleButton(label: "Coming Soon: Save Profile", buttonAction: {
+                SingleButton(label: "Save Profile", buttonAction: {
                     // TODO: Button Code Here
                     // PLACEBO BUTTON for Alpha
+                    SetFontSize(fontSize: fontSize)
+                    SetIsBold(isBold: isBold)
+                    SetSampleText(sampleText: sampleText)
                 }, isDarkmode: colorScheme == .dark)
                     .padding(.top)
-                */
             }
                 .padding()
         }
