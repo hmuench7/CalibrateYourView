@@ -1,14 +1,17 @@
 //
-//  ContentView.swift
+//  SettingsView.swift
 //  CalibrateYourView
 //
-//  UI Lead:        Nathan Taylor
-//  Contributers:   Hunter Muench, Jonah Hood Blaxill
+//  Contributers:   Nathan Taylor
+//                  Hunter Muench
+//                  Jonah Hood Blaxill
+//                  Nick Matthews
 //
 
 import SwiftUI
 
 struct SettingsView: View {
+    // place holder bool for settings that are not implemented yet
     @State var placeHolderBool = false;
     // float for sample text font size
     @State var fontSize: Float = FontSize()
@@ -20,6 +23,7 @@ struct SettingsView: View {
     @Environment(\.colorScheme) private var colorScheme
 
     init() {
+        // fallback for removing black box behind TextEditor
         UITextView.appearance().backgroundColor = .clear
     }
     
@@ -140,11 +144,15 @@ struct SettingsView: View {
         }
     }
     
+    /*
+     Returns a custom toggle and divider group with style pre-applied.
+     */
     func CustomToggle(label: String, isOn: Binding<Bool>) -> some View {
         return Group {
             Toggle(label, isOn: isOn)
                 .toggleStyle(SwitchToggleStyle(tint: Colors.GetAccent()))
                 .font(.system(size: 18))
+                // TODO: on/off labels???
             Divider()
         }
     }

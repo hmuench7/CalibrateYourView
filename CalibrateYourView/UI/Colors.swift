@@ -2,7 +2,7 @@
 //  Colors.swift
 //  CalibrateYourView
 //
-//  Created by Nate on 2/8/23.
+//  Contributers:   Nathan Taylor
 //
 
 import SwiftUI

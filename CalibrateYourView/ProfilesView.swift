@@ -2,9 +2,7 @@
 //  ProfilesView.swift
 //  CalibrateYourView
 //
-//  UI Lead:        
-//  Backend Lead:   Nick Matthews
-//  Contributors:
+//  Contributors:   Nick Matthews
 //
 
 import SwiftUI

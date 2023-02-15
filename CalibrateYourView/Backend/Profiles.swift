@@ -2,7 +2,7 @@
 //  Profiles.swift
 //  CalibrateYourView
 //
-//  Created by Nick Matthews on 2/13/23.
+//  Contributors:   Nick Matthews
 //
 
 import Foundation
