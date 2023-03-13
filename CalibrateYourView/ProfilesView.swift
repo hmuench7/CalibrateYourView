@@ -8,27 +8,33 @@
 import SwiftUI
 
 struct ProfilesView: View {
+    @State var profiles: [Profile] = [
+        Profile(name: "Nate"),
+        Profile(name: "Nick"),
+        Profile(name: "Hunter"),
+        Profile(name: "Jonah")
+    ]
     
     // get the devices Darkmode/Lightmode setting
     @Environment(\.colorScheme) private var colorScheme
-    
-    init() {
-        UITextView.appearance().backgroundColor = .clear
-    }
     
     var body: some View {
         ZStack {
             Colors.SetBackground(isDarkmode: colorScheme == .dark)
             VStack {
-                Logo()
-            }.padding()
+                Logo().padding(.top)
+                
+                List(profiles) { profile in
+                    // TODO: Emoji
+                    Text(profile.name)
+                }
+                
+                SingleButton(label: "New Profile", buttonAction: {
+                    profiles.append(Profile(name: "New Profile"))
+                }, isDarkmode: colorScheme == .dark)
+                .padding()
+            }
         }
-    }
-    
-    var ProfilesStack : some View {
-        VStack { // Profiles Stack
-            // List of Profiles (need a profile UI template to be repeated)
-        }.padding()
     }
 }
 

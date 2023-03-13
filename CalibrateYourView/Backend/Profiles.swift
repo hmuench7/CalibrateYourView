@@ -14,6 +14,14 @@ var defaultIsBold: Bool = false
 var defaultSampleText: String = "The quick brown fox jumps over the lazy dog."
 // auto play & auto brightness default on
 
+struct Profile: Identifiable {
+    let id = UUID() // do not change
+    
+    // TODO: place data here
+    // TODO: Emoji
+    let name: String
+}
+
 
 func SetFontSize(fontSize: Float)
 {
