@@ -10,6 +10,7 @@
 		430F1BF42996C0F900486569 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430F1BF32996C0F900486569 /* Utilities.swift */; };
 		430F1C01299A9F8C00486569 /* ProfilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430F1C00299A9F8B00486569 /* ProfilesView.swift */; };
 		43345694299429140008AC86 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43345693299429140008AC86 /* Colors.swift */; };
+		43C5EF2B29C503F20063B23C /* SaveApplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C5EF2A29C503F20063B23C /* SaveApplyView.swift */; };
 		4B23BDB9299AD66C005C8FF7 /* Profiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B23BDB8299AD66C005C8FF7 /* Profiles.swift */; };
 		D7A127AD29842FA30071AB2E /* CalibrateYourViewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A127AC29842FA30071AB2E /* CalibrateYourViewApp.swift */; };
 		D7A127AF29842FA30071AB2E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A127AE29842FA30071AB2E /* SettingsView.swift */; };
@@ -41,6 +42,7 @@
 		430F1BF32996C0F900486569 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		430F1C00299A9F8B00486569 /* ProfilesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilesView.swift; sourceTree = "<group>"; };
 		43345693299429140008AC86 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		43C5EF2A29C503F20063B23C /* SaveApplyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveApplyView.swift; sourceTree = "<group>"; };
 		4B23BDB8299AD66C005C8FF7 /* Profiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profiles.swift; sourceTree = "<group>"; };
 		D7A127A929842FA30071AB2E /* CalibrateYourView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalibrateYourView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7A127AC29842FA30071AB2E /* CalibrateYourViewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrateYourViewApp.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				D7A127AC29842FA30071AB2E /* CalibrateYourViewApp.swift */,
 				D7A127AE29842FA30071AB2E /* SettingsView.swift */,
 				430F1C00299A9F8B00486569 /* ProfilesView.swift */,
+				43C5EF2A29C503F20063B23C /* SaveApplyView.swift */,
 				430F1BF52996C10D00486569 /* UI */,
 				4B23BDB7299AD658005C8FF7 /* Backend */,
 				D7A127B029842FA50071AB2E /* Assets.xcassets */,
@@ -287,6 +290,7 @@
 			files = (
 				430F1C01299A9F8C00486569 /* ProfilesView.swift in Sources */,
 				D7A127AF29842FA30071AB2E /* SettingsView.swift in Sources */,
+				43C5EF2B29C503F20063B23C /* SaveApplyView.swift in Sources */,
 				43345694299429140008AC86 /* Colors.swift in Sources */,
 				4B23BDB9299AD66C005C8FF7 /* Profiles.swift in Sources */,
 				430F1BF42996C0F900486569 /* Utilities.swift in Sources */,

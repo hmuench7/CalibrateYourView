@@ -44,8 +44,6 @@ struct SettingsView: View {
             Colors.SetBackground(isDarkmode: colorScheme == .dark)
             
             VStack {
-                // CalibrateYourView Logo
-                Logo()
                 
                 // Sample Text Box
                 ZStack {
@@ -91,11 +89,13 @@ struct SettingsView: View {
                     SetFontSize(fontSize: fontSize)
                     SetIsBold(isBold: isBold)
                     SetSampleText(sampleText: sampleText)
+                    
                 }, isDarkmode: colorScheme == .dark)
                 .padding(.top)
             }
             .padding()
         }
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     var SettingsStack : some View {

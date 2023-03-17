@@ -18,8 +18,8 @@ struct Profile: Identifiable {
     let id = UUID() // do not change
     
     // TODO: place data here
-    // TODO: Emoji
     let name: String
+    let symbol: Character // emoji symbol
 }
 
 
