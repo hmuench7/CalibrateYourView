@@ -24,29 +24,32 @@ struct ProfilesView: View {
     
     var body: some View {
         ZStack {
-                Colors.SetBackground(isDarkmode: colorScheme == .dark)
-                VStack {
-                    List {
-                        ForEach(profiles) { prof in
-                            NavigationLink(destination: SettingsView(currentProfile: prof, newProfile: false),
-                                           label: { Text("\(String(prof.symbol))  \(prof.name)") })
-                        }
-                        .onDelete(perform: delete)
-                        .onMove { from, to in
-                            profiles.move(fromOffsets: from, toOffset: to)
-                        }
+            Colors.SetBackground(isDarkmode: colorScheme == .dark)
+            VStack {
+                List {
+                    ForEach(profiles) { prof in
+                        NavigationLink(destination: SettingsView(currentProfile: prof, newProfile: false),
+                                       label: { Text("\(String(prof.symbol))  \(prof.name)") })
                     }
-                    
-                    SingleNavButton(label: "New Profile",
-                                    destination: { SettingsView(currentProfile: Profile(name: "New Profile", symbol: "😎"), newProfile: true) },
-                                    action: {},
-                                    isDarkmode: colorScheme == .dark)
+                    .onDelete(perform: delete)
+                    .onMove { from, to in
+                        profiles.move(fromOffsets: from, toOffset: to)
+                    }
+                }
+                
+                SingleNavButton(label: "New Profile",
+                                destination: {SettingsView(currentProfile: Profile(name: "New Profile", symbol: "😎"), newProfile: true) },
+                                action: {},
+                                isDarkmode: colorScheme == .dark)
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .principal) { Logo() }
-                ToolbarItem(placement: .navigationBarTrailing) { EditButton() }
-            }
+        .onAppear {
+            
+        }
+        .toolbar {
+            ToolbarItem(placement: .principal) { Logo() }
+            ToolbarItem(placement: .navigationBarTrailing) { EditButton() }
+        }
     }
     
     func delete(at offsets: IndexSet) {
@@ -56,6 +59,6 @@ struct ProfilesView: View {
 
 struct ProfilesView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfilesView()
+        NavigationView() { ProfilesView() }
     }
 }

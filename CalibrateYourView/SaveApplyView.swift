@@ -66,6 +66,8 @@ struct SaveApplyView: View {
 
 struct SaveApplyView_Previews: PreviewProvider {
     static var previews: some View {
-        SaveApplyView(currentProfile: Profile(name:"New Profile", symbol:"👾"), newProfile: true)
+        NavigationView {
+            SaveApplyView(currentProfile: Profile(name:"New Profile", symbol:"👾"), newProfile: true)
+        }
     }
 }

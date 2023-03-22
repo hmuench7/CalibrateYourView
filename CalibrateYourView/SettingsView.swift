@@ -184,6 +184,8 @@ struct SettingsView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(currentProfile: Profile(name: "New Profile", symbol: "👾"), newProfile: true)
+        NavigationView {
+            SettingsView(currentProfile: Profile(name: "New Profile", symbol: "👾"), newProfile: true)
+        }
     }
 }
