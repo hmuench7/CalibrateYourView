@@ -14,12 +14,19 @@ var defaultIsBold: Bool = false
 var defaultSampleText: String = "The quick brown fox jumps over the lazy dog."
 // auto play & auto brightness default on
 
+/* TODO: store an array of profiles in userdefaults
+ struct ProfileArray {
+    let profiles: [Profile] =
+}
+ */
+
 struct Profile: Identifiable {
     let id = UUID() // do not change
-    
-    // TODO: place data here
     let name: String
     let symbol: Character // emoji symbol
+    
+    // TODO: place data here
+    
 }
 
 

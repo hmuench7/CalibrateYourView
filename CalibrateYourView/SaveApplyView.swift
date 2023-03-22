@@ -12,7 +12,10 @@ struct SaveApplyView: View {
     @Environment(\.colorScheme) private var colorScheme
     
     @State var name: String = ""
-    @State var symbol: String = ""
+    @ObservedObject var symbol = TextLimiter(limit: 1)
+    
+    let currentProfile: Profile
+    let newProfile: Bool
     
     var body: some View {
         ZStack {
@@ -23,38 +26,46 @@ struct SaveApplyView: View {
                         .fill(Colors.GetBackground2(isDarkmode: colorScheme == .dark))
                     VStack {
                         HStack {
-                            Text("Profile Name: ")
+                            Text("Profile Name:   ")
                             TextField("Profile Name", text: $name)
                         }
                         Divider()
                         HStack {
                             Text("Profile Symbol: ")
-                            // TODO: Change to Emoji Picker!!!
-                            TextField("Profile Symbol", text: $symbol, prompt: Text("🫥"))
+                            TextField("Profile Symbol", text: $symbol.value, prompt: Text("😁"))
                         }
+                        .padding(.top)
                     }.padding(.horizontal)
                 }
-                .frame(height: 100)
+                .frame(height: 120)
                 
-                SingleButton(label: "Save Profile",
-                             buttonAction: {
-                    // TODO
-                }, isDarkmode: colorScheme == .dark)
-                .padding(.top)
-                
-                SingleButton(label: "Save and Apply Profile",
-                             buttonAction: {
-                    // TODO
-                }, isDarkmode: colorScheme == .dark)
+                SingleNavButton(label: "Save Profile",
+                                destination: { ProfilesView() },
+                                action: {
+                    print("Hello! \(name)")
+                    // TODO: if newProfile: Add profile to profiles array
+                    // TODO: else: update existing profile name and symbol
+                                },
+                                isDarkmode: colorScheme == .dark)
                 .padding(.top)
             }
             .padding()
+        }
+        // updates name and symbol on load
+        .onAppear(perform: {
+            if !newProfile {
+                name = currentProfile.name
+                symbol.value = String(currentProfile.symbol)
+            }
+        })
+        .toolbar {
+            ToolbarItem(placement: .principal) { Logo() }
         }
     }
 }
 
 struct SaveApplyView_Previews: PreviewProvider {
     static var previews: some View {
-        SaveApplyView()
+        SaveApplyView(currentProfile: Profile(name:"New Profile", symbol:"👾"), newProfile: true)
     }
 }

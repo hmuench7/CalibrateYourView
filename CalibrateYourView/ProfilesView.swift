@@ -23,18 +23,13 @@ struct ProfilesView: View {
     @State private var selection: String?
     
     var body: some View {
-        NavigationView() {
-            ZStack {
+        ZStack {
                 Colors.SetBackground(isDarkmode: colorScheme == .dark)
                 VStack {
                     List {
                         ForEach(profiles) { prof in
-                            NavigationLink(destination: {
-                                // TODO: Tell Settings View what profile to edit
-                                SettingsView()
-                            }, label: {
-                                Text("\(String(prof.symbol))  \(prof.name)")
-                            })
+                            NavigationLink(destination: SettingsView(currentProfile: prof, newProfile: false),
+                                           label: { Text("\(String(prof.symbol))  \(prof.name)") })
                         }
                         .onDelete(perform: delete)
                         .onMove { from, to in
@@ -42,18 +37,16 @@ struct ProfilesView: View {
                         }
                     }
                     
-                    SingleButton(label: "New Profile", buttonAction: {
-                        // TODO: Open SettingsView for New Profile
-                        profiles.append(Profile(name: "New Profile", symbol: "🫥"))
-                    }, isDarkmode: colorScheme == .dark)
-                    .padding()
+                    SingleNavButton(label: "New Profile",
+                                    destination: { SettingsView(currentProfile: Profile(name: "New Profile", symbol: "😎"), newProfile: true) },
+                                    action: {},
+                                    isDarkmode: colorScheme == .dark)
                 }
             }
             .toolbar {
                 ToolbarItem(placement: .principal) { Logo() }
                 ToolbarItem(placement: .navigationBarTrailing) { EditButton() }
             }
-        }
     }
     
     func delete(at offsets: IndexSet) {

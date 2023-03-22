@@ -11,7 +11,7 @@ import SwiftUI
 struct CalibrateYourViewApp: App {
     var body: some Scene {
         WindowGroup {
-            SettingsView()
+            NavigationView() { ProfilesView() }
         }
     }
 }

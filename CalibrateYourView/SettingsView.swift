@@ -11,6 +11,10 @@
 import SwiftUI
 
 struct SettingsView: View {
+    
+    let currentProfile: Profile
+    let newProfile: Bool
+    
     // place holder bool for settings that are not implemented yet
     @State var placeHolderBool = false;
     @State var placeHolderBool1 = false;
@@ -30,13 +34,9 @@ struct SettingsView: View {
     @State var isBold: Bool = IsBold()
     // string for sample text
     @State var sampleText: String = SampleText()
+    
     // get the devices Darkmode/Lightmode setting
     @Environment(\.colorScheme) private var colorScheme
-
-    init() {
-        // fallback for removing black box behind TextEditor
-        UITextView.appearance().backgroundColor = .clear
-    }
     
     var body: some View {
         ZStack {
@@ -44,7 +44,6 @@ struct SettingsView: View {
             Colors.SetBackground(isDarkmode: colorScheme == .dark)
             
             VStack {
-                
                 // Sample Text Box
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
@@ -59,7 +58,6 @@ struct SettingsView: View {
                     .frame(height: 120)
                 
                 SettingsStack
-                    .padding(.top)
                 
                 // Reset to Defaults Button
                 SingleButton(label: "Reset to Defaults", buttonAction: {
@@ -81,17 +79,20 @@ struct SettingsView: View {
                     placeHolderBool10 = true;
                     placeHolderBool11 = false;
                 }, isDarkmode: colorScheme == .dark)
-                .padding(.top)
                 
                 // Save Profile Button
-                SingleButton(label: "Save Settings", buttonAction: {
+                /*SingleButton(label: "Save Settings", buttonAction: {
                     // Button Code: Save Button Settings
                     SetFontSize(fontSize: fontSize)
                     SetIsBold(isBold: isBold)
                     SetSampleText(sampleText: sampleText)
                     
                 }, isDarkmode: colorScheme == .dark)
-                .padding(.top)
+                .padding(.top)*/
+                SingleNavButton(label: "Save Settings",
+                                destination: { SaveApplyView(currentProfile: currentProfile, newProfile: newProfile) },
+                                action: {},
+                                isDarkmode: colorScheme == .dark)
             }
             .padding()
         }
@@ -183,6 +184,6 @@ struct SettingsView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        SettingsView(currentProfile: Profile(name: "New Profile", symbol: "👾"), newProfile: true)
     }
 }
