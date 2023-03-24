@@ -44,6 +44,10 @@ struct SaveApplyView: View {
                                 action: {
                     print("Hello! \(name)")
                     // TODO: if newProfile: Add profile to profiles array
+                    if newProfile {
+                        profiles.append(Profile(name: name, symbol: symbol.value.first!))
+                        StoreProfiles();
+                    }
                     // TODO: else: update existing profile name and symbol
                                 },
                                 isDarkmode: colorScheme == .dark)

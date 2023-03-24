@@ -14,14 +14,69 @@ var defaultIsBold: Bool = false
 var defaultSampleText: String = "The quick brown fox jumps over the lazy dog."
 // auto play & auto brightness default on
 
-/* TODO: store an array of profiles in userdefaults
- struct ProfileArray {
-    let profiles: [Profile] =
-}
- */
+public var profiles: [Profile] = []
 
-struct Profile: Identifiable {
-    let id = UUID() // do not change
+// loads array of Profiles
+struct ProfileArray {
+    let profiles: [Profile] = LoadProfiles()
+}
+
+// turns single Profile into string format
+func ProfileToString(p: Profile) -> String {
+    // current format: name|symbol
+    return (p.name + "|" + String(p.symbol))
+}
+
+// turns single string-formatted profile into Profile
+func StringToProfile(str: String) -> Profile {
+    // current format: name|symbol
+    let profileArray = str.components(separatedBy: "|")
+    let name = profileArray[0]
+    let symbol = profileArray[1]
+    return Profile(name: name, symbol: symbol.first!)
+}
+
+// stores entire array of Profiles into UserDefaults
+func StoreProfiles()
+{
+    let defaults = UserDefaults.standard
+    let pa = profiles
+    
+    // turn ProfileArray into array of strings
+    var profilesToString = [String]()
+    for p in pa {
+        profilesToString.append(ProfileToString(p: p))
+    }
+    
+    // store array of strings into defaults
+    defaults.set(profilesToString, forKey: "profiles")
+}
+
+// loads entire array of Profiles from userdefaults
+func LoadProfiles() -> [Profile] {
+    let defaults = UserDefaults.standard
+    
+    // load array of strings from defaults
+    let profileStrings = defaults.stringArray(forKey: "profiles") ?? []
+    var profileArray = [Profile]()
+    
+    // turn profilesToString into array of Profiles
+    for str in profileStrings {
+        profileArray.append(StringToProfile(str: str))
+    }
+    
+    // return array of Profiles
+    profiles = profileArray
+    return profileArray
+}
+
+// TODO: find specific profile from ProfileArray
+func FindProfileInfo(id: UUID) -> Profile {
+    return Profile(name: "n", symbol: "s" )
+}
+
+public struct Profile: Identifiable {
+    public let id = UUID() // do not change
     let name: String
     let symbol: Character // emoji symbol
     

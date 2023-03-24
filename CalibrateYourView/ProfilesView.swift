@@ -9,12 +9,7 @@
 import SwiftUI
 
 struct ProfilesView: View {
-    @State var profiles: [Profile] = [
-        Profile(name: "Nate", symbol: "🎃"),
-        Profile(name: "Nick", symbol: "👽"),
-        Profile(name: "Hunter", symbol: "🤖"),
-        Profile(name: "Jonah", symbol: "👾")
-    ]
+    @State var prof: [Profile] = LoadProfiles()
     
     // get the devices Darkmode/Lightmode setting
     @Environment(\.colorScheme) private var colorScheme
@@ -54,6 +49,8 @@ struct ProfilesView: View {
     
     func delete(at offsets: IndexSet) {
         profiles.remove(atOffsets: offsets)
+        StoreProfiles()
+        profiles = LoadProfiles()
     }
 }
 
