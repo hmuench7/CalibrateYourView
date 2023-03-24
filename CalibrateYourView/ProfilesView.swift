@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ProfilesView: View {
-    @State var prof: [Profile] = LoadProfiles()
+//    @State var prof: [Profile] = LoadProfiles()
     
     // get the devices Darkmode/Lightmode setting
     @Environment(\.colorScheme) private var colorScheme
@@ -39,7 +39,7 @@ struct ProfilesView: View {
                 }
             }
         .onAppear {
-            
+            profiles = LoadProfiles()
         }
         .toolbar {
             ToolbarItem(placement: .principal) { Logo() }
