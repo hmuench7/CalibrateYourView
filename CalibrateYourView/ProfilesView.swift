@@ -15,8 +15,6 @@ struct ProfilesView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.editMode) private var editMode
     
-    @State private var selection: String?
-    
     var body: some View {
         ZStack {
             Colors.SetBackground(isDarkmode: colorScheme == .dark)

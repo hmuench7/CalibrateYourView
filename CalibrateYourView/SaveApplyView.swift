@@ -42,15 +42,24 @@ struct SaveApplyView: View {
                 SingleNavButton(label: "Save Profile",
                                 destination: { ProfilesView() },
                                 action: {
+                    // set name and symbol onto currentProfile
                     currentProfile.name = name
                     currentProfile.symbol = symbol.value.first!
-                    print("Hello! \(currentProfile.name)")
                     // if newProfile: Add profile to profiles array
                     if newProfile {
                         profiles.append(currentProfile)
                         StoreProfiles();
                     }
-                    // TODO: else: update existing profile name and symbol
+                    // else: update existing profile name and symbol
+                    else {
+                        // replace matching (id) profile with currentProfile
+                        for (idx,prof) in profiles.enumerated() {
+                            if (prof.customID == currentProfile.customID) {
+                                profiles[idx] = currentProfile
+                            }
+                        }
+                        StoreProfiles();
+                    }
                                 },
                                 isDarkmode: colorScheme == .dark)
                 .padding(.top)
@@ -59,6 +68,7 @@ struct SaveApplyView: View {
         }
         // updates name and symbol on load
         .onAppear(perform: {
+            print(currentProfile.id)
             if !newProfile {
                 name = currentProfile.name
                 symbol.value = String(currentProfile.symbol)

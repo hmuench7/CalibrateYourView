@@ -3,6 +3,7 @@
 //  CalibrateYourView
 //
 //  Contributors:   Nick Matthews
+//                  Nate Taylor
 //
 
 import Foundation
@@ -16,14 +17,9 @@ var defaultSampleText: String = "The quick brown fox jumps over the lazy dog."
 
 public var profiles: [Profile] = []
 
-// loads array of Profiles
-struct ProfileArray {
-    let profiles: [Profile] = LoadProfiles()
-}
-
 // turns single Profile into string format
 func ProfileToString(p: Profile) -> String {
-    return "\(p.name)|\(p.symbol)\(p.description)"
+    return "\(p.customID)|\(p.name)|\(p.symbol)\(p.description)"
 }
 
 // turns single string-formatted profile into Profile
@@ -31,13 +27,14 @@ func StringToProfile(str: String) -> Profile {
     // current format: name|symbol|sampleText|
     let profileArray = str.components(separatedBy: "|")
     
-    let name = profileArray[0]
-    let symbol = profileArray[1].first!
-    let sampleText = profileArray[2]
-    let fontSize: Float = Float(profileArray[3]) ?? defaultFontSize
-    let isBold: Bool = Bool(profileArray[4]) ?? defaultIsBold
+    let customID = UUID(uuidString: profileArray[0]) ?? UUID()
+    let name = profileArray[1]
+    let symbol = profileArray[2].first!
+    let sampleText = profileArray[3]
+    let fontSize: Float = Float(profileArray[4]) ?? defaultFontSize
+    let isBold: Bool = Bool(profileArray[5]) ?? defaultIsBold
     
-    return Profile(name: name, symbol: symbol, sampleText: sampleText,
+    return Profile(customID: customID, name: name, symbol: symbol, sampleText: sampleText,
                    fontSize: fontSize, isBold: isBold)
 }
 
@@ -75,13 +72,9 @@ func LoadProfiles() -> [Profile] {
     return profileArray
 }
 
-// TODO: find specific profile from ProfileArray
-func FindProfileInfo(id: UUID) -> Profile {
-    return Profile(name: "n", symbol: "s" )
-}
-
 public struct Profile: Identifiable {
     public let id = UUID() // do not change
+    var customID = UUID() // temporarily jank fix for replacing
     var name: String
     var symbol: Character // emoji symbol
     
@@ -102,7 +95,6 @@ public struct Profile: Identifiable {
             str.append("|\(setting)")
         }
         
-        print(str)
         return str
     }
 }

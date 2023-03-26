@@ -74,15 +74,6 @@ struct SettingsView: View {
                     placeHolderBool11 = false;
                 }, isDarkmode: colorScheme == .dark)
                 
-                // Save Profile Button
-                /*SingleButton(label: "Save Settings", buttonAction: {
-                    // Button Code: Save Button Settings
-                    SetFontSize(fontSize: fontSize)
-                    SetIsBold(isBold: isBold)
-                    SetSampleText(sampleText: sampleText)
-                    
-                }, isDarkmode: colorScheme == .dark)
-                .padding(.top)*/
                 SingleNavButton(label: "Save Settings",
                                 destination: { SaveApplyView(currentProfile: currentProfile, newProfile: newProfile) },
                                 action: {},
@@ -91,6 +82,9 @@ struct SettingsView: View {
             .padding()
         }
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            print(currentProfile.id)
+        }
     }
 
     var SettingsStack : some View {
