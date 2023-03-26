@@ -11,6 +11,7 @@ struct SaveApplyView: View {
     // get the devices Darkmode/Lightmode setting
     @Environment(\.colorScheme) private var colorScheme
     
+    @State var name: String = ""
     @ObservedObject var symbol = TextLimiter(limit: 1)
     
     @State var currentProfile: Profile
@@ -26,7 +27,7 @@ struct SaveApplyView: View {
                     VStack {
                         HStack {
                             Text("Profile Name:   ")
-                            TextField("Profile Name", text: $currentProfile.name)
+                            TextField("Profile Name", text: $name)
                         }
                         Divider()
                         HStack {
@@ -41,10 +42,11 @@ struct SaveApplyView: View {
                 SingleNavButton(label: "Save Profile",
                                 destination: { ProfilesView() },
                                 action: {
+                    currentProfile.name = name
+                    currentProfile.symbol = symbol.value.first!
                     print("Hello! \(currentProfile.name)")
                     // if newProfile: Add profile to profiles array
                     if newProfile {
-                        currentProfile.symbol = symbol.value.first!
                         profiles.append(currentProfile)
                         StoreProfiles();
                     }
@@ -58,6 +60,7 @@ struct SaveApplyView: View {
         // updates name and symbol on load
         .onAppear(perform: {
             if !newProfile {
+                name = currentProfile.name
                 symbol.value = String(currentProfile.symbol)
             }
         })
