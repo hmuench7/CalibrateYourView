@@ -36,6 +36,7 @@ struct ProfilesView: View {
                                 destination: {SettingsView(currentProfile: Profile(name: "New Profile", symbol: "😎"), newProfile: true) },
                                 action: {},
                                 isDarkmode: colorScheme == .dark)
+                .padding(.horizontal)
                 }
             }
         .onAppear {

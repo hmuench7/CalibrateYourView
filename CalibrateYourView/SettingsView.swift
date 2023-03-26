@@ -12,8 +12,8 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    let currentProfile: Profile
-    let newProfile: Bool
+    @State var currentProfile: Profile
+    @State var newProfile: Bool
     
     // place holder bool for settings that are not implemented yet
     @State var placeHolderBool = false;
@@ -28,12 +28,6 @@ struct SettingsView: View {
     @State var placeHolderBool9 = true;
     @State var placeHolderBool10 = true;
     @State var placeHolderBool11 = false;
-    // float for sample text font size
-    @State var fontSize: Float = FontSize()
-    // bool for bolding sample text
-    @State var isBold: Bool = IsBold()
-    // string for sample text
-    @State var sampleText: String = SampleText()
     
     // get the devices Darkmode/Lightmode setting
     @Environment(\.colorScheme) private var colorScheme
@@ -48,11 +42,11 @@ struct SettingsView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Colors.GetBackground2(isDarkmode: colorScheme == .dark))
-                    TextEditor(text: $sampleText)
+                    TextEditor(text: $currentProfile.sampleText)
                         .padding()
                         .multilineTextAlignment(.center)
-                        .font(.system(size: CGFloat(fontSize),
-                                      weight: isBold ? .bold : .regular))
+                        .font(.system(size: CGFloat(currentProfile.fontSize),
+                                      weight: currentProfile.isBold ? .bold : .regular))
                         .scrollContentBackground(Visibility.hidden)
                 }
                     .frame(height: 120)
@@ -63,9 +57,9 @@ struct SettingsView: View {
                 SingleButton(label: "Reset to Defaults", buttonAction: {
                     // Reset settings to defaults
                     // TODO: add a defaults class or define constants or something?
-                    fontSize = 22.0
-                    isBold = false
-                    sampleText = "The quick brown fox jumps over the lazy dog."
+                    currentProfile.fontSize = defaultFontSize
+                    currentProfile.isBold = defaultIsBold
+                    currentProfile.sampleText = defaultSampleText
                     placeHolderBool = false;
                     placeHolderBool1 = false;
                     placeHolderBool2 = false;
@@ -112,7 +106,7 @@ struct SettingsView: View {
                         .font(.system(size: 20, weight: .bold))
                     
                     // Font Size Slider
-                    Slider( value: $fontSize,
+                    Slider( value: $currentProfile.fontSize,
                             in: 14...32,
                             step:2,
                             minimumValueLabel: Text("A").font(.system(size: 18)),
@@ -122,7 +116,7 @@ struct SettingsView: View {
                     Divider().padding(.top, -2)
                     
                     // Bold Text Toggle
-                    CustomToggle(label: "Bold Text", isOn: $isBold)
+                    CustomToggle(label: "Bold Text", isOn: $currentProfile.isBold)
                     // DyslexieFont Toggle
                     CustomToggle(label: "Dyslexie Font", isOn: $placeHolderBool)
                     

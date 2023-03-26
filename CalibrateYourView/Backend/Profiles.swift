@@ -23,17 +23,22 @@ struct ProfileArray {
 
 // turns single Profile into string format
 func ProfileToString(p: Profile) -> String {
-    // current format: name|symbol
-    return (p.name + "|" + String(p.symbol))
+    return "\(p.name)|\(p.symbol)\(p.description)"
 }
 
 // turns single string-formatted profile into Profile
 func StringToProfile(str: String) -> Profile {
-    // current format: name|symbol
+    // current format: name|symbol|sampleText|
     let profileArray = str.components(separatedBy: "|")
+    
     let name = profileArray[0]
-    let symbol = profileArray[1]
-    return Profile(name: name, symbol: symbol.first!)
+    let symbol = profileArray[1].first!
+    let sampleText = profileArray[2]
+    let fontSize: Float = Float(profileArray[3]) ?? defaultFontSize
+    let isBold: Bool = Bool(profileArray[4]) ?? defaultIsBold
+    
+    return Profile(name: name, symbol: symbol, sampleText: sampleText,
+                   fontSize: fontSize, isBold: isBold)
 }
 
 // stores entire array of Profiles into UserDefaults
@@ -77,64 +82,27 @@ func FindProfileInfo(id: UUID) -> Profile {
 
 public struct Profile: Identifiable {
     public let id = UUID() // do not change
-    let name: String
-    let symbol: Character // emoji symbol
+    var name: String
+    var symbol: Character // emoji symbol
     
-    // TODO: place data here
+    // User settings
+    var sampleText: String = defaultSampleText
+    var fontSize: Float = defaultFontSize
+    var isBold: Bool = defaultIsBold
     
-}
-
-
-func SetFontSize(fontSize: Float)
-{
-    let defaults = UserDefaults.standard
-    defaults.set(fontSize, forKey: "fontSize")
-}
-
-func FontSize() -> Float
-{
-    let defaults = UserDefaults.standard
-    if (isKeyPresentInUserDefaults(key: "fontSize"))
-    {
-        return defaults.float(forKey: "fontSize")
+    // TODO: insert setting declarations here
+    
+    var description: String {
+        let userSettings = [sampleText, fontSize, isBold
+                            // TODO: insert setting keywords here
+                            ] as [Any]
+        var str: String = ""
+        
+        userSettings.forEach { setting in
+            str.append("|\(setting)")
+        }
+        
+        print(str)
+        return str
     }
-    else
-    {
-        return defaultFontSize
-    }
-}
-
-func SetIsBold(isBold: Bool)
-{
-    let defaults = UserDefaults.standard
-    defaults.set(isBold, forKey: "isBold")
-}
-
-func IsBold() -> Bool
-{
-    let defaults = UserDefaults.standard
-    if (isKeyPresentInUserDefaults(key: "isBold"))
-    {
-        return defaults.bool(forKey: "isBold")
-    }
-    else
-    {
-        return defaultIsBold
-    }
-}
-
-func SetSampleText(sampleText: String)
-{
-    let defaults = UserDefaults.standard
-    defaults.set(sampleText, forKey: "sampleText")
-}
-
-func SampleText() -> String
-{
-    let defaults = UserDefaults.standard
-    return ((defaults.string(forKey: "sampleText") ?? defaultSampleText))
-}
-
-func isKeyPresentInUserDefaults(key: String) -> Bool {
-    return UserDefaults.standard.object(forKey: key) != nil
 }
