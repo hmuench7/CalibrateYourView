@@ -5,6 +5,7 @@
 //  Contributors:   Nathan Taylor
 //
 
+import UIKit
 import SwiftUI
 
 struct SaveApplyView: View {
@@ -41,26 +42,7 @@ struct SaveApplyView: View {
                 
                 SingleNavButton(label: "Save Profile",
                                 destination: { ProfilesView() },
-                                action: {
-                    // set name and symbol onto currentProfile
-                    currentProfile.name = name
-                    currentProfile.symbol = symbol.value.first!
-                    // if newProfile: Add profile to profiles array
-                    if newProfile {
-                        profiles.append(currentProfile)
-                        StoreProfiles();
-                    }
-                    // else: update existing profile name and symbol
-                    else {
-                        // replace matching (id) profile with currentProfile
-                        for (idx,prof) in profiles.enumerated() {
-                            if (prof.customID == currentProfile.customID) {
-                                profiles[idx] = currentProfile
-                            }
-                        }
-                        StoreProfiles();
-                    }
-                                },
+                                action: { SaveProfile() },
                                 isDarkmode: colorScheme == .dark)
                 .padding(.top)
             }
@@ -68,7 +50,6 @@ struct SaveApplyView: View {
         }
         // updates name and symbol on load
         .onAppear(perform: {
-            print(currentProfile.id)
             if !newProfile {
                 name = currentProfile.name
                 symbol.value = String(currentProfile.symbol)
@@ -77,6 +58,29 @@ struct SaveApplyView: View {
         .toolbar {
             ToolbarItem(placement: .principal) { Logo() }
         }
+    }
+    
+    func SaveProfile() -> Void {
+        // set name and symbol onto currentProfile
+        currentProfile.name = name
+        currentProfile.symbol = symbol.value.first!
+        
+        // if newProfile: Add profile to profiles array
+        if newProfile {
+            profiles.append(currentProfile)
+        }
+        
+        // else: update existing profile name and symbol
+        else {
+            // replace matching (id) profile with currentProfile
+            for (idx,prof) in profiles.enumerated() {
+                if (prof.customID == currentProfile.customID) {
+                    profiles[idx] = currentProfile
+                }
+            }
+        }
+        
+        StoreProfiles();
     }
 }
 

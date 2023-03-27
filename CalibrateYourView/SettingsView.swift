@@ -82,9 +82,6 @@ struct SettingsView: View {
             .padding()
         }
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            print(currentProfile.id)
-        }
     }
 
     var SettingsStack : some View {
