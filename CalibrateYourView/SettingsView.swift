@@ -12,6 +12,7 @@ import SwiftUI
 
 struct SettingsView: View {
     // place holder bool for settings that are not implemented yet
+    @State var infoTextToggle = false;
     @State var placeHolderBool = false;
     @State var placeHolderBool1 = false;
     @State var placeHolderBool2 = false;
@@ -24,6 +25,7 @@ struct SettingsView: View {
     @State var placeHolderBool9 = true;
     @State var placeHolderBool10 = true;
     @State var placeHolderBool11 = false;
+
     // float for sample text font size
     @State var fontSize: Float = FontSize()
     // bool for bolding sample text
@@ -32,19 +34,16 @@ struct SettingsView: View {
     @State var sampleText: String = SampleText()
     // get the devices Darkmode/Lightmode setting
     @Environment(\.colorScheme) private var colorScheme
-
     init() {
         // fallback for removing black box behind TextEditor
         UITextView.appearance().backgroundColor = .clear
     }
-    
+
     var body: some View {
         ZStack {
             // Set Background
             Colors.SetBackground(isDarkmode: colorScheme == .dark)
-            
             VStack {
-                
                 // Sample Text Box
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
@@ -52,15 +51,12 @@ struct SettingsView: View {
                     TextEditor(text: $sampleText)
                         .padding()
                         .multilineTextAlignment(.center)
-                        .font(.system(size: CGFloat(fontSize),
-                                      weight: isBold ? .bold : .regular))
+                        .font(.system(size: CGFloat(fontSize), weight: isBold ? .bold : .regular))
                         .scrollContentBackground(Visibility.hidden)
                 }
                     .frame(height: 120)
-                
                 SettingsStack
                     .padding(.top)
-                
                 // Reset to Defaults Button
                 SingleButton(label: "Reset to Defaults", buttonAction: {
                     // Reset settings to defaults
@@ -68,6 +64,7 @@ struct SettingsView: View {
                     fontSize = 22.0
                     isBold = false
                     sampleText = "The quick brown fox jumps over the lazy dog."
+                    infoTextToggle = false;
                     placeHolderBool = false;
                     placeHolderBool1 = false;
                     placeHolderBool2 = false;
@@ -82,14 +79,13 @@ struct SettingsView: View {
                     placeHolderBool11 = false;
                 }, isDarkmode: colorScheme == .dark)
                 .padding(.top)
-                
+
                 // Save Profile Button
                 SingleButton(label: "Save Settings", buttonAction: {
                     // Button Code: Save Button Settings
                     SetFontSize(fontSize: fontSize)
                     SetIsBold(isBold: isBold)
                     SetSampleText(sampleText: sampleText)
-                    
                 }, isDarkmode: colorScheme == .dark)
                 .padding(.top)
             }
@@ -98,18 +94,17 @@ struct SettingsView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 
+
     var SettingsStack : some View {
         ZStack { // Settings Stack
             RoundedRectangle(cornerRadius: 10)
                 .fill(Colors.GetBackground2(isDarkmode: colorScheme == .dark))
-            
+
             // Scrollable Settings Section
             ScrollView(.vertical, showsIndicators: false) {
-                
                 VStack { // Text Settings Stack
                     Text("Text Settings")
                         .font(.system(size: 20, weight: .bold))
-                    
                     // Font Size Slider
                     Slider( value: $fontSize,
                             in: 14...32,
@@ -118,13 +113,20 @@ struct SettingsView: View {
                             maximumValueLabel: Text("A").font(.system(size: 24)),
                             label: { Text("") })
                         .tint(.gray)
+                    if infoTextToggle {
+                        Text("System wide font size")
+                            .font(.system(size: 16))
+                            .foregroundColor(.gray)
+                            .multilineTextAlignment(.leading)
+                            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                    }
                     Divider().padding(.top, -2)
-                    
+
                     // Bold Text Toggle
-                    CustomToggle(label: "Bold Text", isOn: $isBold)
+                    CustomToggle(label: "Bold Text", info: "Font weight", isOn: $isBold)
+
                     // DyslexieFont Toggle
-                    CustomToggle(label: "Dyslexie Font", isOn: $placeHolderBool)
-                    
+                    CustomToggle(label: "Dyslexie Font", info: "Applies the Dyslexie Font, not system wide (Apple does not allow this)", isOn: $placeHolderBool)
                 }
                 .padding()
                 
@@ -133,17 +135,17 @@ struct SettingsView: View {
                         .font(.system(size: 20, weight: .bold))
                     
                     // On/Off Labels
-                    CustomToggle(label: "On/Off Labels", isOn: $placeHolderBool2)
+                    CustomToggle(label: "On/Off Labels", info: "Add the On/Off icons to toggles", isOn: $placeHolderBool2)
                     // Reduce Transpareny
-                    CustomToggle(label: "Reduce Transpareny", isOn: $placeHolderBool3)
+                    CustomToggle(label: "Reduce Transpareny", info: "Improve contrast by reducing transparency and blurs on some backgrounds to increase legibility", isOn: $placeHolderBool3)
                     // Increase Contrast
-                    CustomToggle(label: "Increase Contrast", isOn: $placeHolderBool4)
+                    CustomToggle(label: "Increase Contrast", info: "Increase color contrast between app foreground and background colors",isOn: $placeHolderBool4)
                     // Invert Colors
-                    CustomToggle(label: "Invert Colors", isOn: $placeHolderBool5)
+                    CustomToggle(label: "Invert Colors", info: "Reverses the colors of the display, except for images.", isOn: $placeHolderBool5)
                     // Reduce White Point
-                    CustomToggle(label: "Reduce White Point", isOn: $placeHolderBool6)
+                    CustomToggle(label: "Reduce White Point", info: "Reduce the intensity of bright colors",isOn: $placeHolderBool6)
                     // On/Off Auto-Brightness
-                    CustomToggle(label: "On/Off Auto-Brightness", isOn: $placeHolderBool7)
+                    CustomToggle(label: "On/Off Auto-Brightness", info: "Turning off auto brightness may affect battery life and long term display performance", isOn: $placeHolderBool7)
                     
                 }
                 .padding()
@@ -151,18 +153,26 @@ struct SettingsView: View {
                 VStack{ // Motion Settings Stack
                     Text("Motion Settings")
                         .font(.system(size: 20, weight: .bold))
-                    
+
                     // Reduce Motion
-                    CustomToggle(label: "Reduce Motion", isOn: $placeHolderBool8)
+                    CustomToggle(label: "Reduce Motion", info: "Reduce the motion of the user interface, including the parallax effect of icons.", isOn: $placeHolderBool8)
                     // Auto-Play Message Effects
-                    CustomToggle(label: "Auto-Play Message Effects", isOn: $placeHolderBool9)
+                    CustomToggle(label: "Auto-Play Message Effects", info: "Allows fullscreen effects in the Mesages app to auto-play.", isOn: $placeHolderBool9)
                     // Auto-Play Video Previews
-                    CustomToggle(label: "Auto-Play Video Previews", isOn: $placeHolderBool10)
+                    CustomToggle(label: "Auto-Play Video Previews", info: "auto-plays video previews in the Messages app. ", isOn: $placeHolderBool10)
                     // Limit Frame Rate
-                    CustomToggle(label: "Limit Frame Rate", isOn: $placeHolderBool11)
+                    CustomToggle(label: "Limit Frame Rate", info: "Sets the maximum frame rate of the display to 60 frames per second.", isOn: $placeHolderBool11)
                     
                 }
                 .padding()
+                
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing){
+                        Button("Info"){
+                            infoTextToggle = !infoTextToggle;
+                        }
+                    }
+                }
             }
         }
     }
@@ -170,19 +180,29 @@ struct SettingsView: View {
     /*
      Returns a custom toggle and divider group with style pre-applied.
      */
-    func CustomToggle(label: String, isOn: Binding<Bool>) -> some View {
+
+    func CustomToggle(label: String, info: String = "no info yet", isOn: Binding<Bool>) -> some View {
         return Group {
             Toggle(label, isOn: isOn)
                 .toggleStyle(SwitchToggleStyle(tint: Colors.GetAccent()))
                 .font(.system(size: 18))
                 // TODO: on/off labels???
+            if infoTextToggle {
+                Text(info)
+                    .font(.system(size: 16))
+                    .foregroundColor(.gray)
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+            }
             Divider()
         }
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
     }
 }
+
