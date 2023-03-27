@@ -113,7 +113,7 @@ struct SettingsView: View {
                     Divider().padding(.top, -2)
 
                     // Bold Text Toggle
-                    CustomToggle(label: "Bold Text", isOn: $currentProfile.isBold)
+                    CustomToggle(label: "Bold Text", info: "Font weight", isOn: $currentProfile.isBold)
                     // DyslexieFont Toggle
                     CustomToggle(label: "Dyslexie Font", info: "Applies the Dyslexie Font, not system wide (Apple does not allow this)", isOn: $placeHolderBool)
                 }
