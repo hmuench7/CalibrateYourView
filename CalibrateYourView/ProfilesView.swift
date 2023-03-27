@@ -15,6 +15,8 @@ struct ProfilesView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.editMode) private var editMode
     
+    @State private var appSettings: Bool = false
+    
     var body: some View {
         ZStack {
             Colors.SetBackground(isDarkmode: colorScheme == .dark)
@@ -43,6 +45,13 @@ struct ProfilesView: View {
         .toolbar {
             ToolbarItem(placement: .principal) { Logo() }
             ToolbarItem(placement: .navigationBarTrailing) { EditButton() }
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("⛭") { appSettings = true }
+                    .font(.system(size: 40))
+                    .fullScreenCover(isPresented: $appSettings) {
+                        Button("Close") { appSettings = false }
+                    }
+            }
         }
     }
     
