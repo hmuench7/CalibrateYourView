@@ -33,7 +33,7 @@ struct SaveApplyView: View {
                         Divider()
                         HStack {
                             Text("Profile Symbol: ")
-                            TextField("Profile Symbol", text: $symbol.value, prompt: Text("😁"))
+                            TextField("Profile Symbol", text: $symbol.value, prompt: Text(":)"))
                         }
                         .padding(.top)
                     }.padding(.horizontal)
