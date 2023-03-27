@@ -15,8 +15,11 @@ struct SettingsView: View {
     @State var currentProfile: Profile
     @State var newProfile: Bool
     
-    // place holder bool for settings that are not implemented yet
+    @State var darkMode: Bool = false;
+    
     @State var infoTextToggle = false;
+    
+    // place holder bool for settings that are not implemented yet
     @State var placeHolderBool = false;
     @State var placeHolderBool1 = false;
     @State var placeHolderBool2 = false;
@@ -123,6 +126,8 @@ struct SettingsView: View {
                     Text("Display Settings")
                         .font(.system(size: 20, weight: .bold))
                     
+                    // Darkmode
+                    CustomToggle(label: "Darkmode", info: "Changes iOS theme between light text on a dark background (toggle = on) and dark text on a light background (toggle = off).", isOn: $darkMode)
                     // On/Off Labels
                     CustomToggle(label: "On/Off Labels", info: "Add the On/Off icons to toggles", isOn: $placeHolderBool2)
                     // Reduce Transpareny
