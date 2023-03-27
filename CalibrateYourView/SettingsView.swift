@@ -19,19 +19,17 @@ struct SettingsView: View {
     
     @State var infoTextToggle = false;
     
-    // place holder bool for settings that are not implemented yet
-    @State var placeHolderBool = false;
-    @State var placeHolderBool1 = false;
-    @State var placeHolderBool2 = false;
-    @State var placeHolderBool3 = false;
-    @State var placeHolderBool4 = false;
-    @State var placeHolderBool5 = false;
-    @State var placeHolderBool6 = false;
-    @State var placeHolderBool7 = true;
-    @State var placeHolderBool8 = false;
-    @State var placeHolderBool9 = true;
-    @State var placeHolderBool10 = true;
-    @State var placeHolderBool11 = false;
+    @State var dyslexieFont = false;
+    @State var onOffLabels = false;
+    @State var reduceTransparency = false;
+    @State var increaseContrast = false;
+    @State var invertColors = false;
+    @State var reduceWhitePoint = false;
+    @State var onOffAutoBrightness = true;
+    @State var reduceMotion = false;
+    @State var autoPlayMessageEffects = true;
+    @State var autoPlayVideoPreviews = true;
+    @State var limitFramerate = false;
     
     // get the devices Darkmode/Lightmode setting
     @Environment(\.colorScheme) private var colorScheme
@@ -63,18 +61,17 @@ struct SettingsView: View {
                     currentProfile.isBold = defaultIsBold
                     currentProfile.sampleText = defaultSampleText
                     infoTextToggle = false;
-                    placeHolderBool = false;
-                    placeHolderBool1 = false;
-                    placeHolderBool2 = false;
-                    placeHolderBool3 = false;
-                    placeHolderBool4 = false;
-                    placeHolderBool5 = false;
-                    placeHolderBool6 = false;
-                    placeHolderBool7 = true;
-                    placeHolderBool8 = false;
-                    placeHolderBool9 = true;
-                    placeHolderBool10 = true;
-                    placeHolderBool11 = false;
+                    dyslexieFont = false;
+                    onOffLabels = false;
+                    reduceTransparency = false;
+                    increaseContrast = false;
+                    invertColors = false;
+                    reduceWhitePoint = false;
+                    onOffAutoBrightness = true;
+                    reduceMotion = false;
+                    autoPlayMessageEffects = true;
+                    autoPlayVideoPreviews = true;
+                    limitFramerate = false;
                 }, isDarkmode: colorScheme == .dark)
                 
                 SingleNavButton(label: "Save Settings",
@@ -118,7 +115,7 @@ struct SettingsView: View {
                     // Bold Text Toggle
                     CustomToggle(label: "Bold Text", info: "Font weight", isOn: $currentProfile.isBold)
                     // DyslexieFont Toggle
-                    CustomToggle(label: "Dyslexie Font", info: "Applies the Dyslexie Font, not system wide (Apple does not allow this)", isOn: $placeHolderBool)
+                    CustomToggle(label: "Dyslexie Font", info: "Applies the Dyslexie Font, not system wide (Apple does not allow this)", isOn: $dyslexieFont)
                 }
                 .padding()
                 
@@ -128,19 +125,18 @@ struct SettingsView: View {
                     
                     // Darkmode
                     CustomToggle(label: "Darkmode", info: "Changes iOS theme between light text on a dark background (toggle = on) and dark text on a light background (toggle = off).", isOn: $darkMode)
-                    // On/Off Labels
-                    CustomToggle(label: "On/Off Labels", info: "Add the On/Off icons to toggles", isOn: $placeHolderBool2)
-                    // Reduce Transpareny
-                    CustomToggle(label: "Reduce Transpareny", info: "Improve contrast by reducing transparency and blurs on some backgrounds to increase legibility", isOn: $placeHolderBool3)
-                    // Increase Contrast
-                    CustomToggle(label: "Increase Contrast", info: "Increase color contrast between app foreground and background colors",isOn: $placeHolderBool4)
-                    // Invert Colors
-                    CustomToggle(label: "Invert Colors", info: "Reverses the colors of the display, except for images.", isOn: $placeHolderBool5)
-                    // Reduce White Point
-                    CustomToggle(label: "Reduce White Point", info: "Reduce the intensity of bright colors",isOn: $placeHolderBool6)
                     // On/Off Auto-Brightness
-                    CustomToggle(label: "On/Off Auto-Brightness", info: "Turning off auto brightness may affect battery life and long term display performance", isOn: $placeHolderBool7)
-                    
+                    CustomToggle(label: "On/Off Auto-Brightness", info: "Turning off auto brightness may affect battery life and long term display performance", isOn: $onOffAutoBrightness)
+                    // Increase Contrast
+                    CustomToggle(label: "Increase Contrast", info: "Increase color contrast between app foreground and background colors",isOn: $increaseContrast)
+                    // Reduce White Point
+                    CustomToggle(label: "Reduce White Point", info: "Reduce the intensity of bright colors",isOn: $reduceWhitePoint)
+                    // Reduce Transpareny
+                    CustomToggle(label: "Reduce Transpareny", info: "Improve contrast by reducing transparency and blurs on some backgrounds to increase legibility", isOn: $reduceTransparency)
+                    // Invert Colors
+                    CustomToggle(label: "Invert Colors", info: "Reverses the colors of the display, except for images.", isOn: $invertColors)
+                    // On/Off Labels
+                    CustomToggle(label: "On/Off Labels", info: "Add the On/Off icons to toggles", isOn: $onOffLabels)
                 }
                 .padding()
                 
@@ -149,13 +145,13 @@ struct SettingsView: View {
                         .font(.system(size: 20, weight: .bold))
 
                     // Reduce Motion
-                    CustomToggle(label: "Reduce Motion", info: "Reduce the motion of the user interface, including the parallax effect of icons.", isOn: $placeHolderBool8)
-                    // Auto-Play Message Effects
-                    CustomToggle(label: "Auto-Play Message Effects", info: "Allows fullscreen effects in the Mesages app to auto-play.", isOn: $placeHolderBool9)
-                    // Auto-Play Video Previews
-                    CustomToggle(label: "Auto-Play Video Previews", info: "auto-plays video previews in the Messages app. ", isOn: $placeHolderBool10)
+                    CustomToggle(label: "Reduce Motion", info: "Reduce the motion of the user interface, including the parallax effect of icons.", isOn: $reduceMotion)
                     // Limit Frame Rate
-                    CustomToggle(label: "Limit Frame Rate", info: "Sets the maximum frame rate of the display to 60 frames per second.", isOn: $placeHolderBool11)
+                    CustomToggle(label: "Limit Frame Rate", info: "Sets the maximum frame rate of the display to 60 frames per second.", isOn: $limitFramerate)
+                    // Auto-Play Message Effects
+                    CustomToggle(label: "Auto-Play Message Effects", info: "Allows fullscreen effects in the Mesages app to auto-play.", isOn: $autoPlayMessageEffects)
+                    // Auto-Play Video Previews
+                    CustomToggle(label: "Auto-Play Video Previews", info: "auto-plays video previews in the Messages app. ", isOn: $autoPlayVideoPreviews)
                     
                 }
                 .padding()
