@@ -3,6 +3,7 @@
 //  CalibrateYourView
 //
 //  Contributors:   Nick Matthews
+//                  Nate Taylor
 //
 
 import Foundation
@@ -14,65 +15,86 @@ var defaultIsBold: Bool = false
 var defaultSampleText: String = "The quick brown fox jumps over the lazy dog."
 // auto play & auto brightness default on
 
-struct Profile: Identifiable {
-    let id = UUID() // do not change
+public var profiles: [Profile] = []
+
+// turns single Profile into string format
+func ProfileToString(p: Profile) -> String {
+    return "\(p.customID)|\(p.name)|\(p.symbol)\(p.description)"
+}
+
+// turns single string-formatted profile into Profile
+func StringToProfile(str: String) -> Profile {
+    // current format: name|symbol|sampleText|
+    let profileArray = str.components(separatedBy: "|")
     
-    // TODO: place data here
-    let name: String
-    let symbol: Character // emoji symbol
+    let customID = UUID(uuidString: profileArray[0]) ?? UUID()
+    let name = profileArray[1]
+    let symbol = profileArray[2].first!
+    let sampleText = profileArray[3]
+    let fontSize: Float = Float(profileArray[4]) ?? defaultFontSize
+    let isBold: Bool = Bool(profileArray[5]) ?? defaultIsBold
+    
+    return Profile(customID: customID, name: name, symbol: symbol, sampleText: sampleText,
+                   fontSize: fontSize, isBold: isBold)
 }
 
-
-func SetFontSize(fontSize: Float)
+// stores entire array of Profiles into UserDefaults
+func StoreProfiles()
 {
     let defaults = UserDefaults.standard
-    defaults.set(fontSize, forKey: "fontSize")
-}
-
-func FontSize() -> Float
-{
-    let defaults = UserDefaults.standard
-    if (isKeyPresentInUserDefaults(key: "fontSize"))
-    {
-        return defaults.float(forKey: "fontSize")
+    let pa = profiles
+    
+    // turn ProfileArray into array of strings
+    var profilesToString = [String]()
+    for p in pa {
+        profilesToString.append(ProfileToString(p: p))
     }
-    else
-    {
-        return defaultFontSize
+    
+    // store array of strings into defaults
+    defaults.set(profilesToString, forKey: "profiles")
+}
+
+// loads entire array of Profiles from userdefaults
+func LoadProfiles() -> [Profile] {
+    let defaults = UserDefaults.standard
+    
+    // load array of strings from defaults
+    let profileStrings = defaults.stringArray(forKey: "profiles") ?? []
+    var profileArray = [Profile]()
+    
+    // turn profilesToString into array of Profiles
+    for str in profileStrings {
+        profileArray.append(StringToProfile(str: str))
     }
+    
+    // return array of Profiles
+    profiles = profileArray
+    return profileArray
 }
 
-func SetIsBold(isBold: Bool)
-{
-    let defaults = UserDefaults.standard
-    defaults.set(isBold, forKey: "isBold")
-}
-
-func IsBold() -> Bool
-{
-    let defaults = UserDefaults.standard
-    if (isKeyPresentInUserDefaults(key: "isBold"))
-    {
-        return defaults.bool(forKey: "isBold")
+public struct Profile: Identifiable {
+    public let id = UUID() // do not change
+    var customID = UUID() // temporarily jank fix for replacing
+    var name: String
+    var symbol: Character // emoji symbol
+    
+    // User settings
+    var sampleText: String = defaultSampleText
+    var fontSize: Float = defaultFontSize
+    var isBold: Bool = defaultIsBold
+    
+    // TODO: insert setting declarations here
+    
+    var description: String {
+        let userSettings = [sampleText, fontSize, isBold
+                            // TODO: insert setting keywords here
+                            ] as [Any]
+        var str: String = ""
+        
+        userSettings.forEach { setting in
+            str.append("|\(setting)")
+        }
+        
+        return str
     }
-    else
-    {
-        return defaultIsBold
-    }
-}
-
-func SetSampleText(sampleText: String)
-{
-    let defaults = UserDefaults.standard
-    defaults.set(sampleText, forKey: "sampleText")
-}
-
-func SampleText() -> String
-{
-    let defaults = UserDefaults.standard
-    return ((defaults.string(forKey: "sampleText") ?? defaultSampleText))
-}
-
-func isKeyPresentInUserDefaults(key: String) -> Bool {
-    return UserDefaults.standard.object(forKey: key) != nil
 }

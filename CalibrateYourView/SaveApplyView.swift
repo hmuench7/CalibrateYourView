@@ -5,6 +5,7 @@
 //  Contributors:   Nathan Taylor
 //
 
+import UIKit
 import SwiftUI
 
 struct SaveApplyView: View {
@@ -12,7 +13,10 @@ struct SaveApplyView: View {
     @Environment(\.colorScheme) private var colorScheme
     
     @State var name: String = ""
-    @State var symbol: String = ""
+    @ObservedObject var symbol = TextLimiter(limit: 1)
+    
+    @State var currentProfile: Profile
+    @State var newProfile: Bool
     
     var body: some View {
         ZStack {
@@ -23,38 +27,67 @@ struct SaveApplyView: View {
                         .fill(Colors.GetBackground2(isDarkmode: colorScheme == .dark))
                     VStack {
                         HStack {
-                            Text("Profile Name: ")
+                            Text("Profile Name:   ")
                             TextField("Profile Name", text: $name)
                         }
                         Divider()
                         HStack {
                             Text("Profile Symbol: ")
-                            // TODO: Change to Emoji Picker!!!
-                            TextField("Profile Symbol", text: $symbol, prompt: Text("🫥"))
+                            TextField("Profile Symbol", text: $symbol.value, prompt: Text("😁"))
                         }
+                        .padding(.top)
                     }.padding(.horizontal)
                 }
-                .frame(height: 100)
+                .frame(height: 120)
                 
-                SingleButton(label: "Save Profile",
-                             buttonAction: {
-                    // TODO
-                }, isDarkmode: colorScheme == .dark)
-                .padding(.top)
-                
-                SingleButton(label: "Save and Apply Profile",
-                             buttonAction: {
-                    // TODO
-                }, isDarkmode: colorScheme == .dark)
+                SingleNavButton(label: "Save Profile",
+                                destination: { ProfilesView() },
+                                action: { SaveProfile() },
+                                isDarkmode: colorScheme == .dark)
                 .padding(.top)
             }
             .padding()
         }
+        // updates name and symbol on load
+        .onAppear(perform: {
+            if !newProfile {
+                name = currentProfile.name
+                symbol.value = String(currentProfile.symbol)
+            }
+        })
+        .toolbar {
+            ToolbarItem(placement: .principal) { Logo() }
+        }
+    }
+    
+    func SaveProfile() -> Void {
+        // set name and symbol onto currentProfile
+        currentProfile.name = name
+        currentProfile.symbol = symbol.value.first!
+        
+        // if newProfile: Add profile to profiles array
+        if newProfile {
+            profiles.append(currentProfile)
+        }
+        
+        // else: update existing profile name and symbol
+        else {
+            // replace matching (id) profile with currentProfile
+            for (idx,prof) in profiles.enumerated() {
+                if (prof.customID == currentProfile.customID) {
+                    profiles[idx] = currentProfile
+                }
+            }
+        }
+        
+        StoreProfiles();
     }
 }
 
 struct SaveApplyView_Previews: PreviewProvider {
     static var previews: some View {
-        SaveApplyView()
+        NavigationView {
+            SaveApplyView(currentProfile: Profile(name:"New Profile", symbol:"👾"), newProfile: true)
+        }
     }
 }
