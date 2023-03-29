@@ -17,6 +17,7 @@ struct SaveApplyView: View {
     
     @State var currentProfile: Profile
     @State var newProfile: Bool
+    @State var showConfirmation: Bool = true
     
     var body: some View {
         ZStack {
