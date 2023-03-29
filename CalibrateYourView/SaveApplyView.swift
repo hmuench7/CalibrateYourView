@@ -17,6 +17,7 @@ struct SaveApplyView: View {
     
     @State var currentProfile: Profile
     @State var newProfile: Bool
+    @State var showConfirmation: Bool = true
     
     var body: some View {
         ZStack {
@@ -45,6 +46,15 @@ struct SaveApplyView: View {
                                 action: { SaveProfile() },
                                 isDarkmode: colorScheme == .dark)
                 .padding(.top)
+                .alert(isPresented: $showConfirmation) { () -> Alert in
+                    let primaryButton = Alert.Button.default(Text("OK")) {
+                        // Do something
+                    }
+                    let secondaryButton = Alert.Button.cancel(Text("Cancel")) {
+                        // Do nothing
+                    }
+                    return Alert(title: Text("Save Profile"), message: Text("Are you sure you want to save?"), primaryButton: primaryButton, secondaryButton: secondaryButton)
+                }
             }
             .padding()
         }
