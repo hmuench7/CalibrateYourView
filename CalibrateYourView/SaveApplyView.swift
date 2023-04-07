@@ -44,7 +44,14 @@ struct SaveApplyView: View {
                                 destination: { ProfilesView() },
                                 action: { SaveProfile() },
                                 isDarkmode: colorScheme == .dark)
+                .disabled(name == "" || symbol.value == "")
                 .padding(.top)
+                
+                Text("* Profile Name cannot be empty.")
+                    .foregroundColor((name == "") ? .red : .clear)
+                    .padding(.top)
+                Text("* Profile Symbol cannot be empty.")
+                    .foregroundColor((symbol.value == "") ? .red : .clear)
             }
             .padding()
         }
