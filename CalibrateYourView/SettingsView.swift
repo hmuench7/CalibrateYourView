@@ -172,7 +172,7 @@ struct SettingsView: View {
                     // Increase Contrast Toggle
                     CustomToggle(label: "Increase Contrast", info: "Increase color contrast between app foreground and background colors.", isOn: $increaseContrast)
                     // Dark Mode Toggle
-                    CustomToggle(label: "Dark Mode", info: "Dark backgrounds with light text throughtout the system.", isOn: $darkMode)
+                    CustomToggle(label: "Dark Mode", info: "Dark backgrounds with light text through out the system.", isOn: $darkMode)
                     // True Tone Toggle 
                     CustomToggle(label: "True Tone", info: "Automatically adapt iPhone display based on ambient lighting conditions to make colors appear consistent in different environments.", isOn: $trueTone)
                     
@@ -186,7 +186,7 @@ struct SettingsView: View {
                         // Differentiate Without Color Toggle
                         CustomToggle(label: "Differentiate Without Color", info: "Replaces user interface items that rely solely on color to convey information with alternatives", isOn: $differentiateWithoutColor)
                         // Reduce Transparency Toggle
-                        CustomToggle(label: "Reduce Transparency", info: "Improve Contrast by reducing transparency and blurs on somebackgrounds to increase legibility.", isOn: $reduceTransparency)
+                        CustomToggle(label: "Reduce Transparency", info: "Improve Contrast by reducing transparency and blurs on some backgrounds to increase legibility.", isOn: $reduceTransparency)
                         // Reduce White Point Toggle
                         CustomToggle(label: "Reduce White Point", info: "Reduce the intensity of bright colors.", isOn: $reduceWhitePoint)
                         // On/Off Labels Toggle
