@@ -44,6 +44,7 @@ struct ProfilesView: View {
             ToolbarItem(placement: .principal) { Logo() }
             ToolbarItem(placement: .navigationBarTrailing) { EditButton() }
         }
+        .navigationBarBackButtonHidden(true)
     }
     
     func delete(at offsets: IndexSet) {
