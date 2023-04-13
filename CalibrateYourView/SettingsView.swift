@@ -58,8 +58,10 @@ struct SettingsView: View {
                     TextEditor(text: $currentProfile.sampleText)
                         .padding()
                         .multilineTextAlignment(.center)
-                        .font(.system(size: CGFloat(currentProfile.fontSize),
-                                      weight: currentProfile.isBold ? .bold : .regular))
+                        .font(dyslexieFont
+                              ? .OpenDys(.regular, size: CGFloat(currentProfile.fontSize))
+                              : .system(size: CGFloat(currentProfile.fontSize),
+                                        weight: currentProfile.isBold ? .bold : .regular))
                         .scrollContentBackground(Visibility.hidden)
                 }
                     .frame(height: 120)

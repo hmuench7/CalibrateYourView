@@ -28,7 +28,7 @@ extension Font {
         }
     }
     
-    static func OpenDys(_ type: OpenDysFont, size: CGFloat = 24) -> Font {
-        return .custom(type.value, size: size)
+    static func OpenDys(_ weight: OpenDysFont, size: CGFloat = 24) -> Font {
+        return .custom(weight.value, size: size)
     }
 }
