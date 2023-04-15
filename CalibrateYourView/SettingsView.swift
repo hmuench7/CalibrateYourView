@@ -28,7 +28,6 @@ struct SettingsView: View {
     @State var speakScreen = false;
     @State var highlightContent = false;
     // Display Settings Bools
-    @State var darkMode: Bool = false;
     @State var trueTone = true;
     @State var displayZoom = false;
     @State var onOffLabels = false;
@@ -55,7 +54,7 @@ struct SettingsView: View {
                 // Sample Text Box
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
-                        .fill(Colors.GetBackground2(isDarkmode: colorScheme == .dark))
+                        .fill(Colors.GetBackground2(isDarkmode: currentProfile.darkmode))
                     TextEditor(text: $currentProfile.sampleText)
                         .padding()
                         .multilineTextAlignment(.center)
@@ -64,6 +63,7 @@ struct SettingsView: View {
                               : .system(size: CGFloat(currentProfile.fontSize),
                                         weight: currentProfile.isBold ? .bold : .regular))
                         .scrollContentBackground(Visibility.hidden)
+                        .foregroundColor(currentProfile.darkmode ? .white : .black)
                 }
                 .frame(height: 120)
                 
@@ -94,7 +94,7 @@ struct SettingsView: View {
                     speakScreen = false;
                     highlightContent = false;
                     // Display Settings Bools
-                    darkMode = false;
+                    currentProfile.darkmode = false;
                     trueTone = true;
                     displayZoom = false;
                     onOffLabels = false;
@@ -182,7 +182,7 @@ struct SettingsView: View {
                     // Increase Contrast Toggle
                     CustomToggle(label: "Increase Contrast", info: "Increase color contrast between app foreground and background colors.", isOn: $increaseContrast)
                     // Dark Mode Toggle
-                    CustomToggle(label: "Dark Mode", info: "Dark backgrounds with light text through out the system.", image: "DarkLight", imageCaption: "When Dark Mode is off the light theme above is used.  \n\nWhen Dark Mode is on the dark theme above is used.", isOn: $darkMode)
+                    CustomToggle(label: "Dark Mode", info: "Dark backgrounds with light text through out the system.", image: "DarkLight", imageCaption: "When Dark Mode is off the light theme above is used.  \n\nWhen Dark Mode is on the dark theme above is used.", isOn: $currentProfile.darkmode)
                     // True Tone Toggle 
                     CustomToggle(label: "True Tone", info: "Automatically adapt iPhone display based on ambient lighting conditions to make colors appear consistent in different environments.", isOn: $trueTone)
                     
