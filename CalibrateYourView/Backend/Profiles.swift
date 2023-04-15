@@ -10,9 +10,11 @@ import Foundation
 import SwiftUI
 
 // defaults
-var defaultFontSize: Float = 22.0
-var defaultIsBold: Bool = false
-var defaultSampleText: String = "The quick brown fox jumps over the lazy dog."
+let defaultFontSize: Float = 22.0
+let defaultIsBold: Bool = false
+let defaultSampleText: String = "The quick brown fox jumps over the lazy dog."
+let defaultUseDyslexieFont: Bool = false
+
 // auto play & auto brightness default on
 
 public var profiles: [Profile] = []
@@ -33,9 +35,10 @@ func StringToProfile(str: String) -> Profile {
     let sampleText = profileArray[3]
     let fontSize: Float = Float(profileArray[4]) ?? defaultFontSize
     let isBold: Bool = Bool(profileArray[5]) ?? defaultIsBold
+    let useDyslexieFont: Bool = Bool(profileArray[6]) ?? defaultUseDyslexieFont
     
     return Profile(customID: customID, name: name, symbol: symbol, sampleText: sampleText,
-                   fontSize: fontSize, isBold: isBold)
+                   fontSize: fontSize, isBold: isBold, useDyslexieFont: useDyslexieFont)
 }
 
 // stores entire array of Profiles into UserDefaults
@@ -82,11 +85,12 @@ public struct Profile: Identifiable {
     var sampleText: String = defaultSampleText
     var fontSize: Float = defaultFontSize
     var isBold: Bool = defaultIsBold
+    var useDyslexieFont: Bool = defaultUseDyslexieFont
     
     // TODO: insert setting declarations here
     
     var description: String {
-        let userSettings = [sampleText, fontSize, isBold
+        let userSettings = [sampleText, fontSize, isBold, useDyslexieFont
                             // TODO: insert setting keywords here
                             ] as [Any]
         var str: String = ""

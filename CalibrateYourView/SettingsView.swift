@@ -23,9 +23,7 @@ struct SettingsView: View {
     @State var displaySettings = false;
     @State var motionSettings = false;
     
-    // Text Settings Bools 
-    @State var boldText = false;
-    @State var dyslexieFont = false;
+    // Text Settings Bools
     @State var speakSelection = false;
     @State var speakScreen = false;
     @State var highlightContent = false;
@@ -61,20 +59,21 @@ struct SettingsView: View {
                     TextEditor(text: $currentProfile.sampleText)
                         .padding()
                         .multilineTextAlignment(.center)
-                        .font(.system(size: CGFloat(currentProfile.fontSize),
-                                      weight: currentProfile.isBold ? .bold : .regular))
+                        .font(currentProfile.useDyslexieFont
+                              ? .OpenDys(.regular, size: CGFloat(currentProfile.fontSize))
+                              : .system(size: CGFloat(currentProfile.fontSize),
+                                        weight: currentProfile.isBold ? .bold : .regular))
                         .scrollContentBackground(Visibility.hidden)
                 }
                 .frame(height: 120)
+                
                 SettingsStack
                     .padding(.top)
+                
                 // Reset to Defaults Button
                 SingleButton(label: "Reset to Defaults", buttonAction: {
                     // Reset settings to defaults
                     // TODO: add a defaults class or define constants or something?
-                    currentProfile.fontSize = defaultFontSize
-                    currentProfile.isBold = defaultIsBold
-                    currentProfile.sampleText = defaultSampleText
                     infoTextToggle = false;
                     textSettings = false;
                     displaySettings = false;
@@ -87,8 +86,10 @@ struct SettingsView: View {
                     highlightContentExample = false;
                     
                     // Text Settings Bools
-                    boldText = false;
-                    dyslexieFont = false;
+                    currentProfile.fontSize = defaultFontSize;
+                    currentProfile.isBold = defaultIsBold;
+                    currentProfile.sampleText = defaultSampleText;
+                    currentProfile.useDyslexieFont = defaultUseDyslexieFont;
                     speakSelection = false;
                     speakScreen = false;
                     highlightContent = false;
@@ -149,14 +150,14 @@ struct SettingsView: View {
                     }
                     Divider().padding(.top, -2)
                     // Bold Text Toggle
-                    CustomToggle(label: "Bold Text", info: "Font weight.", isOn: $boldText)
+                    CustomToggle(label: "Bold Text", info: "Font weight.", isOn: $currentProfile.isBold)
                     // More settings that are hidden
                     if !textSettings {
                         Button("More \(Image(systemName: "chevron.down"))") { textSettings = true }
                     }
                     else {
                         // Dyslexie Font Toggle
-                        CustomToggle(label: "Dyslexie Font", info: "Applies the Dyslexie Font, not system wide (blame Apple).", isOn: $dyslexieFont)
+                        CustomToggle(label: "Dyslexie Font", info: "Applies the Dyslexie Font, not system wide (blame Apple).", isOn: $currentProfile.useDyslexieFont)
                         // Speak Selection Toggle
                         CustomToggle(label: "Speak Selection", info: "A Speak button will appear when you select text.", image: "SpeakSelection", imageCaption: "When Speak Selection is on the selected text can be spoken aloud by clicking the option seen above in the red outline.", isOn: $speakSelection)
                         // Speak Screen Toggle
