@@ -22,12 +22,6 @@ struct SettingsView: View {
     @State var textSettings = false;
     @State var displaySettings = false;
     @State var motionSettings = false;
-    //full screen cover bools
-    @State var darkModeExample = false;
-    @State var DisplayZoomExample = false;
-    @State var OnOffExample = false;
-    @State var speakSelectionExample = false;
-    @State var highlightContentExample = false;
     
     // Text Settings Bools 
     @State var boldText = false;
@@ -87,8 +81,8 @@ struct SettingsView: View {
                     motionSettings = false;
                     //full screen cover bools
                     darkModeExample = false;
-                    DisplayZoomExample = false;
-                    OnOffExample = false;
+                    displayZoomExample = false;
+                    onOffExample = false;
                     speakSelectionExample = false;
                     highlightContentExample = false;
                     
@@ -164,7 +158,7 @@ struct SettingsView: View {
                         // Dyslexie Font Toggle
                         CustomToggle(label: "Dyslexie Font", info: "Applies the Dyslexie Font, not system wide (blame Apple).", isOn: $dyslexieFont)
                         // Speak Selection Toggle
-                        CustomToggle(label: "Speak Selection", info: "A Speak button will appear when you select text.", image: "speakSelection", imageCaption: "When Speak Selection is on the selected text can be spoken aloud by clicking the option seen above in the red outline.", isOn: $speakSelection)
+                        CustomToggle(label: "Speak Selection", info: "A Speak button will appear when you select text.", image: "SpeakSelection", imageCaption: "When Speak Selection is on the selected text can be spoken aloud by clicking the option seen above in the red outline.", isOn: $speakSelection)
                         // Speak Screen Toggle
                         CustomToggle(label: "Speak Screen", info: "Swipe down with two fingers from the top of the screen to hear the content on the screen.", isOn: $speakScreen)
                         // Highlight Content Toggle
@@ -257,7 +251,7 @@ struct SettingsView: View {
             - isOn: The binding for the toggle 
     */
     func CustomToggle(label: String, info: String = "no info yet", image: String = "none", imageCaption: String = "none", isOn: Binding<Bool>) -> some View {
-        return Group {
+        return VStack {
             Toggle(label, isOn: isOn)
                 .toggleStyle(SwitchToggleStyle(tint: Colors.GetAccent()))
                 .font(.system(size: 18))
@@ -269,137 +263,37 @@ struct SettingsView: View {
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
                 if image != "none" && imageCaption != "none" {
-                    displayImagePopup(image: image, imageCaption: imageCaption)
+                    ImagePopup(isOpen: getFullScreenCoverBool(image: image), image: image, imageCaption: imageCaption)
                 }
                 Divider()
             }
         }
     }
     
-    /*
-     Returns a popup view with an image and caption.
-
-     Yup, this is very ugly code.  It is done this way because the fullScreenCover's isPresented parameter has some problems with me trying to pass the binding bool for 
-     each fullScreenCover to it.  This could be by making a new view for each one, but that would be a lot of code duplication as well.  
-     Basically, I would like it to be modular and only 30 lines of code too, but swift was causing to many problems.  So I just made it work and called it a night.
-
-     Here is to hoping that no more settings than 5 of them need a popup image.
-     
-        - Parameters:
-            - image: The name of the image to display in the popup
-            - imageCaption: The caption for the image
-    */
-    func displayImagePopup(image: String = "none", imageCaption: String = "none") -> some View {
-        if image == "DarkLight"{
-            return Group {
-                Button("What would this look like \(Image(systemName: "questionmark.circle"))") { darkModeExample = true }
-                    .font(.system(size: 16))
-                    .multilineTextAlignment(.leading)
-                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                    .fullScreenCover(isPresented: $darkModeExample) {
-                        VStack{
-                            Button("Close \(Image(systemName: "chevron.down"))") { darkModeExample = false }
-                                .frame(alignment: .topLeading)
-                            Image(image)
-                                .resizable()
-                                .scaledToFit()
-                                .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/, antialiased: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
-                                .frame(width: 250, height: 250, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                            Text(imageCaption)
-                                .font(.system(size: 20))
-                        }.padding()
-                    }
-            } 
-        }
-        else if image == "DisplayZoom"{
-            return Group {
-                Button("What would this look like \(Image(systemName: "questionmark.circle"))") { DisplayZoomExample = true }
-                    .font(.system(size: 16))
-                    .multilineTextAlignment(.leading)
-                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                    .fullScreenCover(isPresented: $DisplayZoomExample) {
-                        VStack{
-                            Button("Close \(Image(systemName: "chevron.down"))") { DisplayZoomExample = false }
-                                .frame(alignment: .topLeading)
-                            Image(image)
-                                .resizable()
-                                .scaledToFit()
-                                .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/, antialiased: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
-                                .frame(width: 250, height: 250, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                            Text(imageCaption)
-                                .font(.system(size: 20))
-                        }.padding()
-                    }
-            } 
-        }
-        else if image == "OnOffLabels"{
-            return Group {
-                Button("What would this look like \(Image(systemName: "questionmark.circle"))") { OnOffExample = true }
-                    .font(.system(size: 16))
-                    .multilineTextAlignment(.leading)
-                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                    .fullScreenCover(isPresented: $OnOffExample) {
-                        VStack{
-                            Button("Close \(Image(systemName: "chevron.down"))") { OnOffExample = false }
-                                .frame(alignment: .topLeading)
-                            Image(image)
-                                .resizable()
-                                .scaledToFit()
-                                .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/, antialiased: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
-                                .frame(width: 250, height: 250, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                            Text(imageCaption)
-                                .font(.system(size: 20))
-                        }.padding()
-                    }
-            } 
-        }
-        else if image == "speakSelection"{
-            return Group {
-                Button("What would this look like \(Image(systemName: "questionmark.circle"))") { speakSelectionExample = true }
-                    .font(.system(size: 16))
-                    .multilineTextAlignment(.leading)
-                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                    .fullScreenCover(isPresented: $speakSelectionExample) {
-                        VStack{
-                            Button("Close \(Image(systemName: "chevron.down"))") { speakSelectionExample = false }
-                                .frame(alignment: .topLeading)
-                            Image(image)
-                                .resizable()
-                                .scaledToFit()
-                                .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/, antialiased: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
-                                .frame(width: 250, height: 250, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                            Text(imageCaption)
-                                .font(.system(size: 20))
-                        }.padding()
-                    }
-            } 
-        }
-        else if image == "Highlight"{
-            return Group {
-                Button("What would this look like \(Image(systemName: "questionmark.circle"))") { highlightContentExample = true }
-                    .font(.system(size: 16))
-                    .multilineTextAlignment(.leading)
-                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                    .fullScreenCover(isPresented: $highlightContentExample) {
-                        VStack{
-                            Button("Close \(Image(systemName: "chevron.down"))") { highlightContentExample = false }
-                                .frame(alignment: .topLeading)
-                            Image(image)
-                                .resizable()
-                                .scaledToFit()
-                                .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/, antialiased: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
-                                .frame(width: 250, height: 250, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                            Text(imageCaption)
-                                .font(.system(size: 20))
-                        }.padding()
-                    }
-            } 
-        }
-        return Group{
-            Text("Missing image info") // this displays if the image is not found
+    //full screen cover bools
+    @State var darkModeExample = false;
+    @State var displayZoomExample = false;
+    @State var onOffExample = false;
+    @State var speakSelectionExample = false;
+    @State var highlightContentExample = false;
+    @State var unknownExample: Bool = false;
+    
+    func getFullScreenCoverBool(image: String) -> Binding<Bool> {
+        switch(image) {
+        case "DarkLight":
+            return $darkModeExample
+        case "DisplayZoom":
+            return $displayZoomExample
+        case "OnOffLabels":
+            return $onOffExample
+        case "SpeakSelection":
+            return $speakSelectionExample
+        case "Highlight":
+            return $highlightContentExample
+        default:
+            return $unknownExample
         }
     }
-    
     
     struct SettingsView_Previews: PreviewProvider {
         static var previews: some View {
@@ -408,5 +302,4 @@ struct SettingsView: View {
             }
         }
     }
-    
 }

@@ -100,3 +100,38 @@ class TextLimiter: ObservableObject {
     }
     @Published var hasReachedLimit = false
 }
+
+/*
+ Returns a popup view with an image and caption.
+
+- Parameters:
+        - isOpen: The bool to bind to the popup.
+        - image: The name of the image to display in the popup.
+        - imageCaption: The caption for the image.
+*/
+struct ImagePopup: View {
+    @Binding var isOpen: Bool
+    var image: String
+    var imageCaption: String
+    
+    var body: some View {
+        Button("What would this look like \(Image(systemName: "questionmark.circle"))") { isOpen = true }
+            .font(.system(size: 16))
+            .multilineTextAlignment(.leading)
+            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+            .fullScreenCover(isPresented: $isOpen) {
+                VStack{
+                    Button("Close \(Image(systemName: "chevron.down"))") { isOpen = false }
+                        .frame(alignment: .topLeading)
+                    Image(image)
+                        .resizable()
+                        .scaledToFit()
+                        .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/, antialiased: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+                        .frame(width: 250, height: 250, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    Text(imageCaption)
+                        .font(.system(size: 20))
+                }
+                .padding()
+            }
+    }
+}
