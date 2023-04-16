@@ -43,6 +43,8 @@ struct SettingsView: View {
     @State var autoPlayVideoPreviews = true;
     @State var limitFramerate = false;
     
+    @State var ExpandTextBox = false;
+    
     // get the devices Darkmode/Lightmode setting
     @Environment(\.colorScheme) private var colorScheme
     
@@ -55,68 +57,74 @@ struct SettingsView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Colors.GetBackground2(isDarkmode: currentProfile.darkmode))
-                    TextEditor(text: $currentProfile.sampleText)
-                        .padding()
-                        .multilineTextAlignment(.center)
-                        .font(currentProfile.useDyslexieFont
-                              ? .OpenDys(size: CGFloat(FontSizes.GetFontSize(fontIdx: currentProfile.fontSize, larger: currentProfile.largerText)),
-                                         weight: currentProfile.isBold ? .bold : .regular)
-                              : .system(size: CGFloat(FontSizes.GetFontSize(fontIdx: currentProfile.fontSize, larger: currentProfile.largerText)),
-                                        weight: currentProfile.isBold ? .bold : .regular))
-                        .scrollContentBackground(Visibility.hidden)
-                        .foregroundColor(currentProfile.darkmode ? .white : .black)
+                    VStack {
+                        TextEditor(text: $currentProfile.sampleText)
+                            .padding(.top)
+                            .padding(.horizontal)
+                            .multilineTextAlignment(.center)
+                            .font(currentProfile.useDyslexieFont
+                                  ? .OpenDys(size: CGFloat(FontSizes.GetFontSize(fontIdx: currentProfile.fontSize, larger: currentProfile.largerText)),
+                                             weight: currentProfile.isBold ? .bold : .regular)
+                                  : .system(size: CGFloat(FontSizes.GetFontSize(fontIdx: currentProfile.fontSize, larger: currentProfile.largerText)),
+                                            weight: currentProfile.isBold ? .bold : .regular))
+                            .scrollContentBackground(Visibility.hidden)
+                            .foregroundColor(currentProfile.darkmode ? .white : .black)
+                        Button(ExpandTextBox ? "Less \(Image(systemName: "chevron.up"))" : "More \(Image(systemName: "chevron.down"))") { ExpandTextBox.toggle() }
+                            .padding(.bottom, 5)
+                    }
                 }
-                .frame(height: 120)
+                .frame(height: ExpandTextBox ? 250 : 150)
                 
                 SettingsStack
-                    .padding(.top)
                 
-                // Reset to Defaults Button
-                SingleButton(label: "Reset to Defaults", buttonAction: {
-                    // Reset settings to defaults
-                    // TODO: add a defaults class or define constants or something?
-                    infoTextToggle = false;
-                    textSettings = false;
-                    displaySettings = false;
-                    motionSettings = false;
-                    //full screen cover bools
-                    darkModeExample = false;
-                    displayZoomExample = false;
-                    onOffExample = false;
-                    speakSelectionExample = false;
-                    highlightContentExample = false;
+                HStack {
+                    // Reset to Defaults Button
+                    SingleButton(label: "Reset to Defaults", buttonAction: {
+                        // Reset settings to defaults
+                        // TODO: add a defaults class or define constants or something?
+                        infoTextToggle = false;
+                        textSettings = false;
+                        displaySettings = false;
+                        motionSettings = false;
+                        //full screen cover bools
+                        darkModeExample = false;
+                        displayZoomExample = false;
+                        onOffExample = false;
+                        speakSelectionExample = false;
+                        highlightContentExample = false;
+                        
+                        // Text Settings Bools
+                        currentProfile.fontSize = defaultFontSize;
+                        currentProfile.isBold = defaultIsBold;
+                        currentProfile.sampleText = defaultSampleText;
+                        currentProfile.useDyslexieFont = defaultUseDyslexieFont;
+                        speakSelection = false;
+                        speakScreen = false;
+                        highlightContent = false;
+                        // Display Settings Bools
+                        currentProfile.darkmode = false;
+                        trueTone = true;
+                        displayZoom = false;
+                        onOffLabels = false;
+                        reduceTransparency = false;
+                        increaseContrast = false;
+                        differentiateWithoutColor = false;
+                        reduceWhitePoint = false;
+                        onOffAutoBrightness = true;
+                        // Motion settings Bools
+                        reduceMotion = false;
+                        autoPlayMessageEffects = true;
+                        dimFlashingLights = false;
+                        autoPlayVideoPreviews = true;
+                        limitFramerate = false;
+                        
+                    }, isDarkmode: colorScheme == .dark)
                     
-                    // Text Settings Bools
-                    currentProfile.fontSize = defaultFontSize;
-                    currentProfile.isBold = defaultIsBold;
-                    currentProfile.sampleText = defaultSampleText;
-                    currentProfile.useDyslexieFont = defaultUseDyslexieFont;
-                    speakSelection = false;
-                    speakScreen = false;
-                    highlightContent = false;
-                    // Display Settings Bools
-                    currentProfile.darkmode = false;
-                    trueTone = true;
-                    displayZoom = false;
-                    onOffLabels = false;
-                    reduceTransparency = false;
-                    increaseContrast = false;
-                    differentiateWithoutColor = false;
-                    reduceWhitePoint = false;
-                    onOffAutoBrightness = true;
-                    // Motion settings Bools
-                    reduceMotion = false;
-                    autoPlayMessageEffects = true;
-                    dimFlashingLights = false;
-                    autoPlayVideoPreviews = true;
-                    limitFramerate = false;
-                    
-                }, isDarkmode: colorScheme == .dark)
-                
-                SingleNavButton(label: "Save Settings",
-                                destination: { SaveApplyView(currentProfile: currentProfile, newProfile: newProfile) },
-                                action: {},
-                                isDarkmode: colorScheme == .dark)
+                    SingleNavButton(label: "Save Changes",
+                                    destination: { SaveApplyView(currentProfile: currentProfile, newProfile: newProfile) },
+                                    action: {},
+                                    isDarkmode: colorScheme == .dark)
+                }
             }
             .padding()
         }
@@ -156,13 +164,13 @@ struct SettingsView: View {
                     
                     // Bold Text Toggle
                     CustomToggle(label: "Bold Text", info: "Font weight.", isOn: $currentProfile.isBold)
+                    // Dyslexie Font Toggle
+                    CustomToggle(label: "Dyslexie Font", info: "Applies the Dyslexie Font, not system wide (blame Apple).", isOn: $currentProfile.useDyslexieFont)
                     // More settings that are hidden
                     if !textSettings {
                         Button("More \(Image(systemName: "chevron.down"))") { textSettings = true }
                     }
                     else {
-                        // Dyslexie Font Toggle
-                        CustomToggle(label: "Dyslexie Font", info: "Applies the Dyslexie Font, not system wide (blame Apple).", isOn: $currentProfile.useDyslexieFont)
                         // Speak Selection Toggle
                         CustomToggle(label: "Speak Selection", info: "A Speak button will appear when you select text.", image: "SpeakSelection", imageCaption: "When Speak Selection is on the selected text can be spoken aloud by clicking the option seen above in the red outline.", isOn: $speakSelection)
                         // Speak Screen Toggle
