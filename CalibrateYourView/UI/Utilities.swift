@@ -135,3 +135,15 @@ struct ImagePopup: View {
             }
     }
 }
+
+struct FontSizes {
+    static let normal_sizes: [Float] = [14, 15, 16, 17, 19, 21, 23]
+    static let normal_names = ["xSmall", "Small", "Medium", "Large", "xLarge", "xxLarge", "xxxLarge"]
+    static let access_sizes: [Float] = [28, 33, 40, 47, 53]
+    static let access_names = ["Accessibility Medium", "Accessibility Large", "Accessibility xLarge", "Accessibility xxLarge", "Accessibility xxxLarge"]
+    static let reverseFontSize: [Float: Float] = [14: 0, 15: 1, 16: 2, 17: 3, 19: 4, 21: 5, 23: 6, 28: 0, 33: 1, 40: 2, 47: 3, 53: 4]
+    
+    static func GetFontSize(fontIdx: Float, larger: Bool) -> CGFloat {
+        return CGFloat(larger ? access_sizes[Int(Float.maximum(Float.minimum(fontIdx, 4), 0))] : normal_sizes[Int(Float.maximum(Float.minimum(fontIdx, 6), 0))])
+    }
+}

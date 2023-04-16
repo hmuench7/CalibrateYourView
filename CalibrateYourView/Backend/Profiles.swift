@@ -15,6 +15,7 @@ let defaultIsBold: Bool = false
 let defaultSampleText: String = "The quick brown fox jumps over the lazy dog."
 let defaultUseDyslexieFont: Bool = false
 let defaultDarkMode = false
+let defaultLargerText = false
 
 // auto play & auto brightness default on
 
@@ -36,12 +37,13 @@ func StringToProfile(str: String) -> Profile {
     let sampleText = profileArray[3]
     let fontSize: Float = Float(profileArray[4]) ?? defaultFontSize
     let isBold: Bool = Bool(profileArray[5]) ?? defaultIsBold
-    let useDyslexieFont: Bool = Bool(profileArray[6]) ?? defaultUseDyslexieFont
+    let dys: Bool = Bool(profileArray[6]) ?? defaultUseDyslexieFont
     let darkmode = Bool(profileArray[7]) ?? defaultDarkMode
+    let larger = Bool(profileArray[8]) ?? defaultLargerText
     
     return Profile(customID: customID, name: name, symbol: symbol, sampleText: sampleText,
-                   fontSize: fontSize, isBold: isBold, useDyslexieFont: useDyslexieFont,
-                   darkmode: darkmode)
+                   fontSize: fontSize, isBold: isBold, useDyslexieFont: dys, darkmode: darkmode,
+                   largerText: larger)
 }
 
 // stores entire array of Profiles into UserDefaults
@@ -90,12 +92,13 @@ public struct Profile: Identifiable {
     var isBold: Bool = defaultIsBold
     var useDyslexieFont: Bool = defaultUseDyslexieFont
     var darkmode: Bool = defaultDarkMode
+    var largerText: Bool = defaultLargerText
     
     // TODO: insert setting declarations here
     
     var description: String {
         let userSettings = [sampleText, fontSize, isBold, useDyslexieFont,
-                            darkmode, // TODO: insert setting keywords here
+                            darkmode, largerText // TODO: insert setting keywords here
                             ] as [Any]
         var str: String = ""
         

@@ -59,8 +59,8 @@ struct SettingsView: View {
                         .padding()
                         .multilineTextAlignment(.center)
                         .font(currentProfile.useDyslexieFont
-                              ? .OpenDys(.regular, size: CGFloat(currentProfile.fontSize))
-                              : .system(size: CGFloat(currentProfile.fontSize),
+                              ? .OpenDys(.regular, size: CGFloat(FontSizes.GetFontSize(fontIdx: currentProfile.fontSize, larger: currentProfile.largerText)))
+                              : .system(size: CGFloat(FontSizes.GetFontSize(fontIdx: currentProfile.fontSize, larger: currentProfile.largerText)),
                                         weight: currentProfile.isBold ? .bold : .regular))
                         .scrollContentBackground(Visibility.hidden)
                         .foregroundColor(currentProfile.darkmode ? .white : .black)
@@ -122,7 +122,6 @@ struct SettingsView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    
     var SettingsStack : some View {
         ZStack { // Settings Stack
             RoundedRectangle(cornerRadius: 10)
@@ -134,13 +133,16 @@ struct SettingsView: View {
                     Text("Text Settings")
                         .font(.system(size: 20, weight: .bold))
                     // Font Size Slider
-                    Slider( value: $currentProfile.fontSize,
-                            in: 14...32,
-                            step:2,
-                            minimumValueLabel: Text("A").font(.system(size: 18)),
-                            maximumValueLabel: Text("A").font(.system(size: 24)),
-                            label: { Text("") })
+                    Slider(value: $currentProfile.fontSize,
+                           in: currentProfile.largerText ? 0...4 : 0...6,
+                           step: 1,
+                           minimumValueLabel: Text("A").font(.system(size: CGFloat(currentProfile.largerText ? FontSizes.access_sizes[0] : FontSizes.normal_sizes[0]))),
+                           maximumValueLabel: Text("A").font(.system(size: CGFloat(currentProfile.largerText ? FontSizes.access_sizes[4] : FontSizes.normal_sizes[6]))),
+                           label: { Text("") })
                     .tint(.gray)
+                    .onChange(of: currentProfile.largerText) { newValue in
+                        currentProfile.fontSize = newValue ? 0 : 3
+                    }
                     if infoTextToggle {
                         Text("System wide font size")
                             .font(.system(size: 16))
@@ -148,7 +150,9 @@ struct SettingsView: View {
                             .multilineTextAlignment(.leading)
                             .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
                     }
-                    Divider().padding(.top, -2)
+                    
+                    CustomToggle(label:"Larger Text", info: "Larger Accessibility Sizes.", isOn: $currentProfile.largerText)
+                    
                     // Bold Text Toggle
                     CustomToggle(label: "Bold Text", info: "Font weight.", isOn: $currentProfile.isBold)
                     // More settings that are hidden
@@ -266,8 +270,8 @@ struct SettingsView: View {
                 if image != "none" && imageCaption != "none" {
                     ImagePopup(isOpen: getFullScreenCoverBool(image: image), image: image, imageCaption: imageCaption)
                 }
-                Divider()
             }
+            Divider()
         }
     }
     
