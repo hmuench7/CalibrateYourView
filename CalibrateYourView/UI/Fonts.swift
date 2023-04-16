@@ -17,7 +17,7 @@ extension Font {
         var value: String {
             switch self {
             case .bold:
-                return "OpenDyslexic-Regular"
+                return "OpenDyslexic-Bold"
             case .boldItalic:
                 return "OpenDyslexic-BoldItalic"
             case .italic:
@@ -28,7 +28,7 @@ extension Font {
         }
     }
     
-    static func OpenDys(_ weight: OpenDysFont, size: CGFloat = 24) -> Font {
+    static func OpenDys(size: CGFloat = 24, weight: OpenDysFont) -> Font {
         return .custom(weight.value, size: size)
     }
 }

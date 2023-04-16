@@ -59,7 +59,8 @@ struct SettingsView: View {
                         .padding()
                         .multilineTextAlignment(.center)
                         .font(currentProfile.useDyslexieFont
-                              ? .OpenDys(.regular, size: CGFloat(FontSizes.GetFontSize(fontIdx: currentProfile.fontSize, larger: currentProfile.largerText)))
+                              ? .OpenDys(size: CGFloat(FontSizes.GetFontSize(fontIdx: currentProfile.fontSize, larger: currentProfile.largerText)),
+                                         weight: currentProfile.isBold ? .bold : .regular)
                               : .system(size: CGFloat(FontSizes.GetFontSize(fontIdx: currentProfile.fontSize, larger: currentProfile.largerText)),
                                         weight: currentProfile.isBold ? .bold : .regular))
                         .scrollContentBackground(Visibility.hidden)
