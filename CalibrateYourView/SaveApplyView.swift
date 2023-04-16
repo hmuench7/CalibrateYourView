@@ -66,6 +66,7 @@ struct SaveApplyView: View {
         .toolbar {
             ToolbarItem(placement: .principal) { Logo() }
         }
+        .onTapGesture(count: 1) { self.endEditing() } // tap to make keyboard go down
     }
     
     func SaveProfile() -> Void {

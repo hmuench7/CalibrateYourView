@@ -121,8 +121,6 @@ struct ImagePopup: View {
             .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
             .fullScreenCover(isPresented: $isOpen) {
                 VStack{
-                    Button("Close \(Image(systemName: "chevron.down"))") { isOpen = false }
-                        .frame(alignment: .topLeading)
                     Image(image)
                         .resizable()
                         .scaledToFit()
@@ -130,6 +128,9 @@ struct ImagePopup: View {
                         .frame(width: 250, height: 250, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                     Text(imageCaption)
                         .font(.system(size: 20))
+                    Button("Close \(Image(systemName: "chevron.down"))") { isOpen = false }
+                        .frame(alignment: .topLeading)
+                        .padding(.top)
                 }
                 .padding()
             }
@@ -145,5 +146,11 @@ struct FontSizes {
     
     static func GetFontSize(fontIdx: Float, larger: Bool) -> CGFloat {
         return CGFloat(larger ? access_sizes[Int(Float.maximum(Float.minimum(fontIdx, 4), 0))] : normal_sizes[Int(Float.maximum(Float.minimum(fontIdx, 6), 0))])
+    }
+}
+
+extension View {
+    func endEditing() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }

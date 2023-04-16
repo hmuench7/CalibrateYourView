@@ -94,10 +94,11 @@ struct SettingsView: View {
                         highlightContentExample = false;
                         
                         // Text Settings Bools
-                        currentProfile.fontSize = defaultFontSize;
                         currentProfile.isBold = defaultIsBold;
                         currentProfile.sampleText = defaultSampleText;
                         currentProfile.useDyslexieFont = defaultUseDyslexieFont;
+                        currentProfile.largerText = defaultLargerText
+                        currentProfile.fontSize = defaultFontSize;
                         speakSelection = false;
                         speakScreen = false;
                         highlightContent = false;
@@ -129,6 +130,7 @@ struct SettingsView: View {
             .padding()
         }
         .navigationBarTitleDisplayMode(.inline)
+        .onTapGesture(count: 1) { self.endEditing() } // tap to make keyboard go down
     }
     
     var SettingsStack : some View {
@@ -150,7 +152,7 @@ struct SettingsView: View {
                            label: { Text("") })
                     .tint(.gray)
                     .onChange(of: currentProfile.largerText) { newValue in
-                        currentProfile.fontSize = newValue ? 0 : 3
+                        currentProfile.fontSize = newValue ? 0 : defaultFontSize
                     }
                     if infoTextToggle {
                         Text("System wide font size")
