@@ -22,16 +22,40 @@ func StringToProfile(str: String) -> Profile {
     let customID = UUID(uuidString: profileArray[0]) ?? UUID()
     let name = profileArray[1]
     let symbol = profileArray[2].first!
-    let sampleText = profileArray[3]
-    let fontSize: Float = Float(profileArray[4]) ?? defaultFontSize
-    let isBold: Bool = Bool(profileArray[5]) ?? defaultIsBold
-    let dys: Bool = Bool(profileArray[6]) ?? defaultUseDyslexieFont
-    let darkmode = Bool(profileArray[7]) ?? defaultDarkMode
-    let larger = Bool(profileArray[8]) ?? defaultLargerText
     
-    return Profile(customID: customID, name: name, symbol: symbol, sampleText: sampleText,
-                   fontSize: fontSize, isBold: isBold, useDyslexieFont: dys, darkmode: darkmode,
-                   largerText: larger)
+    // 3 sample, 4 font, 5 bold, 6 dys, 7 larger, 8 speakSel, 9 speakScr, 10 highlight
+    let sample = profileArray[3]
+    let font: Float = Float(profileArray[4]) ?? defaultFontSize
+    let bold: Bool = Bool(profileArray[5]) ?? defaultIsBold
+    let dys: Bool = Bool(profileArray[6]) ?? defaultUseDyslexieFont
+    let larger = Bool(profileArray[7]) ?? defaultLargerText
+    let speakSel = Bool(profileArray[8]) ?? defaultSpeakSelection
+    let speakScr = Bool(profileArray[9]) ?? defaultSpeakScreen
+    let highlight = Bool(profileArray[10]) ?? defaultHighlightContent
+    
+    // 11 dark, 12 trueTone, 13 zoom, 14 labels, 15 transp, 16 contrast, 17 diff, 18 whitepoint, 19 autoBright
+    let dark = Bool(profileArray[11]) ?? defaultDarkMode
+    let trueTone = Bool(profileArray[12]) ?? defaultTrueTone
+    let zoom = Bool(profileArray[13]) ?? defaultdisplayZoom
+    let labels = Bool(profileArray[14]) ?? defaultonOffLabels
+    let transp = Bool(profileArray[15]) ?? defaultreduceTransparency
+    let contrast = Bool(profileArray[16]) ?? defaultincreaseContrast
+    let diff = Bool(profileArray[17]) ?? defaultdifferentiateWithoutColor
+    let whitepoint = Bool(profileArray[18]) ?? defaultreduceWhitePoint
+    let autoBright = Bool(profileArray[19]) ?? defaultonOffAutoBrightness
+    
+    // 20 motion, 21 msgs, 22 flashes, 23 previews, 24 limitfps
+    let motion = Bool(profileArray[20]) ?? defaultreduceMotion
+    let msgs = Bool(profileArray[21]) ?? defaultautoPlayMessageEffects
+    let flashes = Bool(profileArray[22]) ?? defaultdimFlashingLights
+    let previews = Bool(profileArray[23]) ?? defaultautoPlayVideoPreviews
+    let limitfps = Bool(profileArray[24]) ?? defaultlimitFramerate
+    
+    return Profile(customID: customID, name: name, symbol: symbol, sampleText: sample, fontSize: font, isBold: bold, useDyslexieFont: dys, largerText: larger,
+                   speakSelection: speakSel, speakScreen: speakScr, highlightContent: highlight,
+                   darkmode: dark, trueTone: trueTone, displayZoom: zoom, onOffLabels: labels, reduceTransparency: transp, increaseContrast: contrast,
+                   differentiateWithoutColor: diff, reduceWhitePoint: whitepoint, onOffAutoBrightness: autoBright,
+                   reduceMotion: motion, autoPlayMessageEffects: msgs, dimFlashingLights: flashes, autoPlayVideoPreviews: previews, limitFramerate: limitfps)
 }
 
 // stores entire array of Profiles into UserDefaults
@@ -73,19 +97,39 @@ public struct Profile: Identifiable {
     var name: String
     var symbol: Character // emoji symbol
     
-    // User settings
+    // Text Settings Bools
     var sampleText: String = defaultSampleText
     var fontSize: Float = defaultFontSize
     var isBold: Bool = defaultIsBold
     var useDyslexieFont: Bool = defaultUseDyslexieFont
-    var darkmode: Bool = defaultDarkMode
     var largerText: Bool = defaultLargerText
+    var speakSelection: Bool = defaultSpeakSelection
+    var speakScreen: Bool = defaultSpeakScreen
+    var highlightContent: Bool = defaultHighlightContent
+    // Display Settings Bools
+    var darkmode: Bool = defaultDarkMode
+    var trueTone: Bool = defaultTrueTone
+    var displayZoom: Bool = defaultdisplayZoom
+    var onOffLabels: Bool = defaultonOffLabels
+    var reduceTransparency: Bool = defaultreduceTransparency
+    var increaseContrast: Bool = defaultincreaseContrast
+    var differentiateWithoutColor: Bool = defaultdifferentiateWithoutColor
+    var reduceWhitePoint: Bool = defaultreduceWhitePoint
+    var onOffAutoBrightness: Bool = defaultonOffAutoBrightness
+    // Motion settings Bools
+    var reduceMotion: Bool = defaultreduceMotion
+    var autoPlayMessageEffects: Bool = defaultautoPlayMessageEffects
+    var dimFlashingLights: Bool = defaultdimFlashingLights
+    var autoPlayVideoPreviews: Bool = defaultautoPlayVideoPreviews
+    var limitFramerate: Bool = defaultlimitFramerate
     
     // TODO: insert setting declarations here
     
     var description: String {
-        let userSettings = [sampleText, fontSize, isBold, useDyslexieFont,
-                            darkmode, largerText // TODO: insert setting keywords here
+        let userSettings = [sampleText, fontSize, isBold, useDyslexieFont, largerText, speakSelection, speakScreen, highlightContent,
+                            darkmode, trueTone, displayZoom, onOffLabels, reduceTransparency, increaseContrast, differentiateWithoutColor,
+                            reduceWhitePoint, onOffAutoBrightness,
+                            reduceMotion, autoPlayMessageEffects, dimFlashingLights, autoPlayVideoPreviews, limitFramerate
                             ] as [Any]
         var str: String = ""
         

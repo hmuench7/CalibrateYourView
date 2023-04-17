@@ -23,26 +23,6 @@ struct SettingsView: View {
     @State var displaySettings = false;
     @State var motionSettings = false;
     
-    // Text Settings Bools
-    @State var speakSelection = false;
-    @State var speakScreen = false;
-    @State var highlightContent = false;
-    // Display Settings Bools
-    @State var trueTone = true;
-    @State var displayZoom = false;
-    @State var onOffLabels = false;
-    @State var reduceTransparency = false;
-    @State var increaseContrast = false;
-    @State var differentiateWithoutColor = false;
-    @State var reduceWhitePoint = false;
-    @State var onOffAutoBrightness = true;
-    // Motion settings Bools
-    @State var reduceMotion = false;
-    @State var autoPlayMessageEffects = true;
-    @State var dimFlashingLights = false;
-    @State var autoPlayVideoPreviews = true;
-    @State var limitFramerate = false;
-    
     @State var ExpandTextBox = false;
     
     @State var resetAlert = false
@@ -94,25 +74,25 @@ struct SettingsView: View {
                             currentProfile.useDyslexieFont = defaultUseDyslexieFont
                             currentProfile.largerText = defaultLargerText
                             currentProfile.fontSize = defaultFontSize
-                            speakSelection = defaultSpeakSelection
-                            speakScreen = defaultSpeakScreen
-                            highlightContent = defaultHighlightContent
+                            currentProfile.speakSelection = defaultSpeakSelection
+                            currentProfile.speakScreen = defaultSpeakScreen
+                            currentProfile.highlightContent = defaultHighlightContent
                             // Display Settings Bools
                             currentProfile.darkmode = defaultDarkMode
-                            trueTone = defaultTrueTone
-                            displayZoom = defaultdisplayZoom
-                            onOffLabels = defaultonOffLabels
-                            reduceTransparency = defaultreduceTransparency
-                            increaseContrast = defaultincreaseContrast
-                            differentiateWithoutColor = defaultdifferentiateWithoutColor
-                            reduceWhitePoint = defaultreduceWhitePoint
-                            onOffAutoBrightness = defaultonOffAutoBrightness
+                            currentProfile.trueTone = defaultTrueTone
+                            currentProfile.displayZoom = defaultdisplayZoom
+                            currentProfile.onOffLabels = defaultonOffLabels
+                            currentProfile.reduceTransparency = defaultreduceTransparency
+                            currentProfile.increaseContrast = defaultincreaseContrast
+                            currentProfile.differentiateWithoutColor = defaultdifferentiateWithoutColor
+                            currentProfile.reduceWhitePoint = defaultreduceWhitePoint
+                            currentProfile.onOffAutoBrightness = defaultonOffAutoBrightness
                             // Motion settings Bools
-                            reduceMotion = defaultreduceMotion
-                            autoPlayMessageEffects = defaultautoPlayMessageEffects
-                            dimFlashingLights = defaultdimFlashingLights
-                            autoPlayVideoPreviews = defaultautoPlayVideoPreviews
-                            limitFramerate = defaultlimitFramerate
+                            currentProfile.reduceMotion = defaultreduceMotion
+                            currentProfile.autoPlayMessageEffects = defaultautoPlayMessageEffects
+                            currentProfile.dimFlashingLights = defaultdimFlashingLights
+                            currentProfile.autoPlayVideoPreviews = defaultautoPlayVideoPreviews
+                            currentProfile.limitFramerate = defaultlimitFramerate
                         }
                     }
                     
@@ -169,13 +149,13 @@ struct SettingsView: View {
                     }
                     else {
                         // Speak Selection Toggle
-                        CustomToggle(label: "Speak Selection", info: "A Speak button will appear when you select text.", image: "SpeakSelection", imageCaption: "When Speak Selection is on the selected text can be spoken aloud by clicking the option seen above in the red outline.", isOn: $speakSelection)
+                        CustomToggle(label: "Speak Selection", info: "A Speak button will appear when you select text.", image: "SpeakSelection", imageCaption: "When Speak Selection is on the selected text can be spoken aloud by clicking the option seen above in the red outline.", isOn: $currentProfile.speakSelection)
                         // Speak Screen Toggle
-                        CustomToggle(label: "Speak Screen", info: "Swipe down with two fingers from the top of the screen to hear the content on the screen.", isOn: $speakScreen)
+                        CustomToggle(label: "Speak Screen", info: "Swipe down with two fingers from the top of the screen to hear the content on the screen.", isOn: $currentProfile.speakScreen)
                         // Highlight Content Toggle
                         // only shows up if one of the above two is selected (just like in apples settings)
-                        if (speakScreen || speakSelection){ 
-                            CustomToggle(label: "Highlight Content", info: "Highlight content as it is spoken.", image: "Highlight", imageCaption: "If Highlight Content is on, the sentence being read by speak selection or speak screen will be underlined and the word being spoken will be highlighted.  \n\nThis can be seen in the red outline of the image above.", isOn: $highlightContent)
+                        if (currentProfile.speakScreen || currentProfile.speakSelection){
+                            CustomToggle(label: "Highlight Content", info: "Highlight content as it is spoken.", image: "Highlight", imageCaption: "If Highlight Content is on, the sentence being read by speak selection or speak screen will be underlined and the word being spoken will be highlighted.  \n\nThis can be seen in the red outline of the image above.", isOn: $currentProfile.highlightContent)
                         }
                         Button("Less \(Image(systemName: "chevron.up"))") {textSettings = false }
                     }
@@ -188,13 +168,13 @@ struct SettingsView: View {
                         .font(.system(size: 20, weight: .bold))
                     
                     //Display Zoom Toggle
-                    CustomToggle(label: "Display Zoom", info: "When on shows larger text and controls, when off shows more content.", image: "DisplayZoom", imageCaption: "When Display Zoom is on the screen shows everything slightly larger as seen in the \'On\' image above.  \n\nWhen Display Zoom is off the screen shows more content at a regular size as seen in the \'Off\' image above.", isOn: $displayZoom)
+                    CustomToggle(label: "Display Zoom", info: "When on shows larger text and controls, when off shows more content.", image: "DisplayZoom", imageCaption: "When Display Zoom is on the screen shows everything slightly larger as seen in the \'On\' image above.  \n\nWhen Display Zoom is off the screen shows more content at a regular size as seen in the \'Off\' image above.", isOn: $currentProfile.displayZoom)
                     // Increase Contrast Toggle
-                    CustomToggle(label: "Increase Contrast", info: "Increase color contrast between app foreground and background colors.", isOn: $increaseContrast)
+                    CustomToggle(label: "Increase Contrast", info: "Increase color contrast between app foreground and background colors.", isOn: $currentProfile.increaseContrast)
                     // Dark Mode Toggle
                     CustomToggle(label: "Dark Mode", info: "Dark backgrounds with light text through out the system.", image: "DarkLight", imageCaption: "When Dark Mode is off the light theme above is used.  \n\nWhen Dark Mode is on the dark theme above is used.", isOn: $currentProfile.darkmode)
                     // True Tone Toggle 
-                    CustomToggle(label: "True Tone", info: "Automatically adapt iPhone display based on ambient lighting conditions to make colors appear consistent in different environments.", isOn: $trueTone)
+                    CustomToggle(label: "True Tone", info: "Automatically adapt iPhone display based on ambient lighting conditions to make colors appear consistent in different environments.", isOn: $currentProfile.trueTone)
                     
                     // Extra less important Settings
                     if !displaySettings {
@@ -202,15 +182,15 @@ struct SettingsView: View {
                     }
                     else {
                         // Auto-Brightness Toggle
-                        CustomToggle(label: "Auto-Brightness", info: "Turning off auto-brightness may affect battery life and long-term display performance.", isOn: $onOffAutoBrightness)
+                        CustomToggle(label: "Auto-Brightness", info: "Turning off auto-brightness may affect battery life and long-term display performance.", isOn: $currentProfile.onOffAutoBrightness)
                         // Differentiate Without Color Toggle
-                        CustomToggle(label: "Differentiate Without Color", info: "Replaces user interface items that rely solely on color to convey information with alternatives", isOn: $differentiateWithoutColor)
+                        CustomToggle(label: "Differentiate Without Color", info: "Replaces user interface items that rely solely on color to convey information with alternatives", isOn: $currentProfile.differentiateWithoutColor)
                         // Reduce Transparency Toggle
-                        CustomToggle(label: "Reduce Transparency", info: "Improve Contrast by reducing transparency and blurs on some backgrounds to increase legibility.", isOn: $reduceTransparency)
+                        CustomToggle(label: "Reduce Transparency", info: "Improve Contrast by reducing transparency and blurs on some backgrounds to increase legibility.", isOn: $currentProfile.reduceTransparency)
                         // Reduce White Point Toggle
-                        CustomToggle(label: "Reduce White Point", info: "Reduce the intensity of bright colors.", isOn: $reduceWhitePoint)
+                        CustomToggle(label: "Reduce White Point", info: "Reduce the intensity of bright colors.", isOn: $currentProfile.reduceWhitePoint)
                         // On/Off Labels Toggle
-                        CustomToggle(label: "On/Off Labels", info: "Add On/Off icons to toggles", image: "OnOffLabels", imageCaption: "If On/Off Labels is on it will change all of the toggles to have labels like the image above.", isOn: $onOffLabels)
+                        CustomToggle(label: "On/Off Labels", info: "Add On/Off icons to toggles", image: "OnOffLabels", imageCaption: "If On/Off Labels is on it will change all of the toggles to have labels like the image above.", isOn: $currentProfile.onOffLabels)
                         Button("Less \(Image(systemName: "chevron.up"))") {displaySettings = false }
                     }
                 }
@@ -220,11 +200,11 @@ struct SettingsView: View {
                     Text("Motion Settings")
                         .font(.system(size: 20, weight: .bold))
                     // Reduce Motion Toggle
-                    CustomToggle(label: "Reduce Motion", info: "Reduce the motion of the user interface, including the parallax effect of icons.", isOn: $reduceMotion)
+                    CustomToggle(label: "Reduce Motion", info: "Reduce the motion of the user interface, including the parallax effect of icons.", isOn: $currentProfile.reduceMotion)
                     // Dim Flashing Lights
-                    CustomToggle(label: "Dim Flashing Lights", info: "Video content that depicts repeated flashing or strobing lights will be automatically dimmed.", isOn: $dimFlashingLights)
+                    CustomToggle(label: "Dim Flashing Lights", info: "Video content that depicts repeated flashing or strobing lights will be automatically dimmed.", isOn: $currentProfile.dimFlashingLights)
                     // Limit Frame Rate
-                    CustomToggle(label: "Limit Frame Rate", info: "Sets the maximum framerate of the display to 60 frames per second.", isOn: $limitFramerate)
+                    CustomToggle(label: "Limit Frame Rate", info: "Sets the maximum framerate of the display to 60 frames per second.", isOn: $currentProfile.limitFramerate)
                     
                     // Extra less important settings
                     if !motionSettings {
@@ -232,9 +212,9 @@ struct SettingsView: View {
                     }
                     else {
                         // Auto-Play message effects toggle
-                        CustomToggle(label: "Auto-Play Message Effects", info: "Allows fullscreen effects in the Messages app to auto-play", isOn: $autoPlayMessageEffects)
+                        CustomToggle(label: "Auto-Play Message Effects", info: "Allows fullscreen effects in the Messages app to auto-play", isOn: $currentProfile.autoPlayMessageEffects)
                         // Auto-Play Video Previews Toggle
-                        CustomToggle(label: "Auto-Play Video Previews", info: "Allows video previews to play automatically.", isOn: $autoPlayVideoPreviews)
+                        CustomToggle(label: "Auto-Play Video Previews", info: "Allows video previews to play automatically.", isOn: $currentProfile.autoPlayVideoPreviews)
                         Button("Less \(Image(systemName: "chevron.up"))") {motionSettings = false }
                     }
                 }

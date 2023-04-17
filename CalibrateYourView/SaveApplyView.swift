@@ -41,12 +41,18 @@ struct SaveApplyView: View {
                 }
                 .frame(height: 120)
                 
+                SingleNavButton(label: "Save and Apply Profile",
+                                destination: { ApplyView(currentProfile: currentProfile) },
+                                action: { SaveProfile() },
+                                isDarkmode: colorScheme == .dark)
+                .disabled(name == "" || symbol.value == "")
+                .padding(.top)
+                
                 SingleNavButton(label: "Save Profile",
                                 destination: { ProfilesView() },
                                 action: { SaveProfile() },
                                 isDarkmode: colorScheme == .dark)
                 .disabled(name == "" || symbol.value == "")
-                .padding(.top)
                 
                 Text("* Profile Name cannot be empty.")
                     .foregroundColor((name == "") ? .red : .clear)

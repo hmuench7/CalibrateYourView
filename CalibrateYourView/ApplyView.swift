@@ -39,13 +39,15 @@ struct ApplyView: View {
         ZStack {
             // Set Background
             Colors.SetBackground(isDarkmode: colorScheme == .dark)
-            
-            SettingsToApply
-            
-            SingleNavButton(label: "Back to Profiles",
-                            destination: { ProfilesView() },
-                            action: {},
-                            isDarkmode: colorScheme == .dark)
+            VStack {
+                SettingsToApply
+                
+                SingleNavButton(label: "Back to Profiles",
+                                destination: { ProfilesView() },
+                                action: {},
+                                isDarkmode: colorScheme == .dark)
+            }
+            .padding()
         }
     }
     
@@ -88,7 +90,6 @@ struct ApplyView: View {
             }
             .padding()
         }
-        .padding()
     }
 }
 
