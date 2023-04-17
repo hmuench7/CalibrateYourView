@@ -9,16 +9,6 @@
 import Foundation
 import SwiftUI
 
-// defaults
-let defaultFontSize: Float = 22.0
-let defaultIsBold: Bool = false
-let defaultSampleText: String = "The quick brown fox jumps over the lazy dog."
-let defaultUseDyslexieFont: Bool = false
-let defaultDarkMode = false
-let defaultLargerText = false
-
-// auto play & auto brightness default on
-
 // turns single Profile into string format
 func ProfileToString(p: Profile) -> String {
     return "\(p.customID)|\(p.name)|\(p.symbol)\(p.description)"
@@ -106,3 +96,31 @@ public struct Profile: Identifiable {
         return str
     }
 }
+
+// default text settings
+let defaultFontSize: Float = 22.0
+let defaultIsBold: Bool = false
+let defaultSampleText: String = "The quick brown fox jumps over the lazy dog."
+let defaultUseDyslexieFont: Bool = false
+let defaultLargerText = false
+let defaultSpeakSelection = false
+let defaultSpeakScreen = false
+let defaultHighlightContent = false
+
+// default display settings
+let defaultDarkMode = false
+let defaultTrueTone = true
+let defaultdisplayZoom = false
+let defaultonOffLabels = false
+let defaultreduceTransparency = false
+let defaultincreaseContrast = false
+let defaultdifferentiateWithoutColor = false
+let defaultreduceWhitePoint = false
+let defaultonOffAutoBrightness = true
+
+// Motion settings Bools
+let defaultreduceMotion = false
+let defaultautoPlayMessageEffects = true
+let defaultdimFlashingLights = false
+let defaultautoPlayVideoPreviews = true
+let defaultlimitFramerate = false

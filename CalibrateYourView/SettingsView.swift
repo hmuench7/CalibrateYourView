@@ -45,6 +45,8 @@ struct SettingsView: View {
     
     @State var ExpandTextBox = false;
     
+    @State var resetAlert = false
+    
     // get the devices Darkmode/Lightmode setting
     @Environment(\.colorScheme) private var colorScheme
     
@@ -80,46 +82,39 @@ struct SettingsView: View {
                 HStack {
                     // Reset to Defaults Button
                     SingleButton(label: "Reset to Defaults", buttonAction: {
-                        // Reset settings to defaults
-                        // TODO: add a defaults class or define constants or something?
-                        infoTextToggle = false;
-                        textSettings = false;
-                        displaySettings = false;
-                        motionSettings = false;
-                        //full screen cover bools
-                        darkModeExample = false;
-                        displayZoomExample = false;
-                        onOffExample = false;
-                        speakSelectionExample = false;
-                        highlightContentExample = false;
-                        
-                        // Text Settings Bools
-                        currentProfile.isBold = defaultIsBold;
-                        currentProfile.sampleText = defaultSampleText;
-                        currentProfile.useDyslexieFont = defaultUseDyslexieFont;
-                        currentProfile.largerText = defaultLargerText
-                        currentProfile.fontSize = defaultFontSize;
-                        speakSelection = false;
-                        speakScreen = false;
-                        highlightContent = false;
-                        // Display Settings Bools
-                        currentProfile.darkmode = false;
-                        trueTone = true;
-                        displayZoom = false;
-                        onOffLabels = false;
-                        reduceTransparency = false;
-                        increaseContrast = false;
-                        differentiateWithoutColor = false;
-                        reduceWhitePoint = false;
-                        onOffAutoBrightness = true;
-                        // Motion settings Bools
-                        reduceMotion = false;
-                        autoPlayMessageEffects = true;
-                        dimFlashingLights = false;
-                        autoPlayVideoPreviews = true;
-                        limitFramerate = false;
-                        
+                        resetAlert = true
                     }, isDarkmode: colorScheme == .dark)
+                    .alert("Reset to Defaults?", isPresented: $resetAlert) {
+                        Button("Cancel") { resetAlert = false }
+                        Button("Reset") {
+                            // Reset settings to defaults
+                            // Text Settings Bools
+                            currentProfile.isBold = defaultIsBold
+                            currentProfile.sampleText = defaultSampleText
+                            currentProfile.useDyslexieFont = defaultUseDyslexieFont
+                            currentProfile.largerText = defaultLargerText
+                            currentProfile.fontSize = defaultFontSize
+                            speakSelection = defaultSpeakSelection
+                            speakScreen = defaultSpeakScreen
+                            highlightContent = defaultHighlightContent
+                            // Display Settings Bools
+                            currentProfile.darkmode = defaultDarkMode
+                            trueTone = defaultTrueTone
+                            displayZoom = defaultdisplayZoom
+                            onOffLabels = defaultonOffLabels
+                            reduceTransparency = defaultreduceTransparency
+                            increaseContrast = defaultincreaseContrast
+                            differentiateWithoutColor = defaultdifferentiateWithoutColor
+                            reduceWhitePoint = defaultreduceWhitePoint
+                            onOffAutoBrightness = defaultonOffAutoBrightness
+                            // Motion settings Bools
+                            reduceMotion = defaultreduceMotion
+                            autoPlayMessageEffects = defaultautoPlayMessageEffects
+                            dimFlashingLights = defaultdimFlashingLights
+                            autoPlayVideoPreviews = defaultautoPlayVideoPreviews
+                            limitFramerate = defaultlimitFramerate
+                        }
+                    }
                     
                     SingleNavButton(label: "Save Changes",
                                     destination: { SaveApplyView(currentProfile: currentProfile, newProfile: newProfile) },
