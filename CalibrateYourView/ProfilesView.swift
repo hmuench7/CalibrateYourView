@@ -16,6 +16,8 @@ struct ProfilesView: View {
     @Environment(\.editMode) var editMode
     
     @State var profiles: [Profile] = []
+    @State private var deleteAlertShow: Bool = false
+    @State private var deleteIndexSet: IndexSet = IndexSet()
     
     var body: some View {
         ZStack {
@@ -26,11 +28,24 @@ struct ProfilesView: View {
                         NavigationLink(destination: SettingsView(currentProfile: prof, newProfile: false),
                                        label: { Text("\(String(prof.symbol))  \(prof.name)") })
                     }
-                    .onDelete(perform: delete)
                     .onMove { from, to in
                         profiles.move(fromOffsets: from, toOffset: to)
                         StoreProfiles(profiles)
                     }
+                    .onDelete { indexSet in
+                        deleteIndexSet = indexSet
+                        deleteAlertShow = true
+                    }
+                }
+                .alert(isPresented: $deleteAlertShow) {
+                    Alert(
+                        title: Text("Delete \(profiles[deleteIndexSet.first!].name)?"),
+                        message: Text("Are you sure that you want to delete this profile? This action can't be undone."),
+                        primaryButton: .destructive(Text("Delete"), action: {
+                            delete(at: deleteIndexSet)
+                        }),
+                        secondaryButton: .cancel()
+                        )
                 }
                 
                 SingleNavButton(label: "New Profile",
@@ -52,6 +67,7 @@ struct ProfilesView: View {
     
     func delete(at offsets: IndexSet) {
         profiles.remove(atOffsets: offsets)
+        StoreProfiles(profiles)
     }
 }
 
