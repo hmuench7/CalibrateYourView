@@ -10,6 +10,7 @@ import MediaAccessibility
 
 struct ApplyView: View {
     
+    @Environment(\.openURL) var openURL
     @State var currentProfile: Profile
     
     @State var boldText = UIAccessibility.isBoldTextEnabled;
@@ -51,8 +52,12 @@ struct ApplyView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 Text("How To Apply Settings")
                     .font(.system(size: 20, weight: .bold))
-                if true {
-                    Text("Setting")
+                    .padding()
+                if currentProfile.isBold == boldText {
+                    let url = URL(string: UIApplication.openSettingsURLString)
+                    Text("To Enable the Bold Text Setting")
+                    Link("Navigate to Settings > Display and Brightness",
+                    destination: url!)
                 }
             }
             .padding()
