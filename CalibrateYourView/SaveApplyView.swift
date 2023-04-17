@@ -74,6 +74,8 @@ struct SaveApplyView: View {
         currentProfile.name = name
         currentProfile.symbol = symbol.value.first!
         
+        var profiles: [Profile] = LoadProfiles()
+        
         // if newProfile: Add profile to profiles array
         if newProfile {
             profiles.append(currentProfile)
@@ -89,7 +91,7 @@ struct SaveApplyView: View {
             }
         }
         
-        StoreProfiles();
+        StoreProfiles(profiles);
     }
 }
 

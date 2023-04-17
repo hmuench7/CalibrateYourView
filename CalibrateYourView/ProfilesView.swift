@@ -13,7 +13,9 @@ struct ProfilesView: View {
     
     // get the devices Darkmode/Lightmode setting
     @Environment(\.colorScheme) private var colorScheme
-    @Environment(\.editMode) private var editMode
+    @Environment(\.editMode) var editMode
+    
+    @State var profiles: [Profile] = []
     
     var body: some View {
         ZStack {
@@ -27,6 +29,7 @@ struct ProfilesView: View {
                     .onDelete(perform: delete)
                     .onMove { from, to in
                         profiles.move(fromOffsets: from, toOffset: to)
+                        StoreProfiles(profiles)
                     }
                 }
                 
@@ -49,8 +52,6 @@ struct ProfilesView: View {
     
     func delete(at offsets: IndexSet) {
         profiles.remove(atOffsets: offsets)
-        StoreProfiles()
-        profiles = LoadProfiles()
     }
 }
 

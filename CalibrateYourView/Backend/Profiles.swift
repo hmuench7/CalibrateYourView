@@ -19,8 +19,6 @@ let defaultLargerText = false
 
 // auto play & auto brightness default on
 
-public var profiles: [Profile] = []
-
 // turns single Profile into string format
 func ProfileToString(p: Profile) -> String {
     return "\(p.customID)|\(p.name)|\(p.symbol)\(p.description)"
@@ -47,7 +45,7 @@ func StringToProfile(str: String) -> Profile {
 }
 
 // stores entire array of Profiles into UserDefaults
-func StoreProfiles()
+func StoreProfiles(_ profiles: [Profile])
 {
     let defaults = UserDefaults.standard
     let pa = profiles
@@ -76,12 +74,11 @@ func LoadProfiles() -> [Profile] {
     }
     
     // return array of Profiles
-    profiles = profileArray
     return profileArray
 }
 
 public struct Profile: Identifiable {
-    public let id = UUID() // do not change
+    public var id = UUID() // do not change
     var customID = UUID() // temporarily jank fix for replacing
     var name: String
     var symbol: Character // emoji symbol

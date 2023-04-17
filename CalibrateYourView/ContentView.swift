@@ -9,13 +9,15 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @State var profiles: [Profile] = []
+    
     init() {
         profiles = LoadProfiles()
     }
     
     var body: some View {
         NavigationView {
-            ProfilesView()
+            ProfilesView(profiles: profiles)
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
